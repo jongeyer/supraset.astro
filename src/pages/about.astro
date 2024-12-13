@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Markdown from '../components/Markdown.astro';
+
+import { getEntry } from 'astro:content';
+
+const aboutEntry = await getEntry('pages', 'about');
+let Content;
+if (aboutEntry) {
+  Content = (await aboutEntry.render()).Content;
+} else {
+  throw new Error('entry is undefined');
+}
+
+---
+
+<Layout title={aboutEntry.data.title} styles="bg-zorba-100 text-ocean-800 py-8 px-8 grid h-screen overflow-auto" >
+  <Markdown frontmatter={aboutEntry.data}>
+    <Content />
+  </Markdown>
+</Layout>

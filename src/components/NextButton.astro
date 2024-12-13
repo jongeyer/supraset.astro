@@ -1,0 +1,33 @@
+---
+interface Props {
+	to: string;
+}
+const { to } = Astro.props;
+---
+
+<a href={to} class="arrow text-zorba-50 text-8xl cursor-pointer tracking-tighter mx-auto">&#8595;</a>
+
+<style>
+	.arrow {
+			transition: transform 0.2s;
+	}
+	
+	.arrow:hover {
+			animation: wiggle 0.5s ease-in-out infinite;
+	}
+	
+	@keyframes wiggle {
+			0%, 100% {
+					transform: rotate(0deg);
+			}
+			25% {
+					transform: rotate(-9deg);
+			}
+			50% {
+					transform: rotate(7deg);
+			}
+			75% {
+					transform: rotate(-5deg);
+			}
+	}
+	</style>
