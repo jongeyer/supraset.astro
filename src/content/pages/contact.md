@@ -1,12 +1,6 @@
 ---
 title: "About Me"
-styles: "bg-zorba-100 text-zorba-800"
+styles: ""
 ---
 
 # Reach Out
-
-LinkedIn
-
-Github
-
-Email

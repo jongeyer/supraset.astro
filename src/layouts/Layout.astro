@@ -1,7 +1,9 @@
 ---
 import '../styles/base.css';
-import { ViewTransitions } from 'astro:transitions'; 
-import Navigation from '../components/Navigation.astro';
+import { Tooltips } from 'astro-tooltips'
+import Nav from '../components/Nav.astro';
+// import Personalizer from '../components/Personalizer.astro';
+// import ThemeToggle from '../components/ThemeToggle.astro';
 interface Props {
 	title: string;
 	styles?: string;
@@ -10,7 +12,7 @@ interface Props {
 
 const { title, styles, width } = Astro.props;
 const formattedTitle = `${title} | Jonathan Geyer`;
-const formattedStyles = `${styles} ${width == 'flex' ? 'flex items-center justify-center' : ''} h-screen`;
+const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center justify-center' : ''} h-screen`;
 ---
 
 <!doctype html>
@@ -24,15 +26,19 @@ const formattedStyles = `${styles} ${width == 'flex' ? 'flex items-center justif
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{formattedTitle}</title>
-		<ViewTransitions />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap" rel="stylesheet">
+		<Tooltips interactive={false} delay={[50, 1000]} />
 	</head>
 	<body class="bg-indigo-900 p-0 m-0 relative">
 		<div class={formattedStyles}>
-			<Navigation />
+			<Nav />
 			<slot />
+			<!-- <Personalizer /> -->
+			<div class="absolute bottom-6 right-6 h-6">
+				<!-- <ThemeToggle /> -->
+			</div>
 		</div>
 	</body>
 </html>

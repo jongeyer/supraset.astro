@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+---
+
+<theme-toggle>
+	<button class="flex border border-zorba-800 rounded-full p-0 bg-zorba-900 bg-opacity-75 shadow-inner cursor-pointer">
+		<span class="sr-only">Dark theme</span>
+		<span class="
+      light-toggle relative flex p-2 w-8 h-8 text-base text-zorba-100
+      before:content-[''] before:absolute before:z-0 before:inset-0 before:bg-ocean-700 before:rounded-full before:transition-transform
+    ">
+      <Icon icon="sun" styles="z-1 relative" />
+    </span>
+		<span class="dark-toggle relative flex p-2 w-8 h-8 text-base text-zorba-100">
+      <Icon icon="moon-stars" styles="z-1 relative" />
+    </span>
+	</button>
+</theme-toggle>
+
+<style>
+
+:global(.theme-dark) .light-toggle::before {
+  transform: translateX(100%);
+}
+:global(.theme-dark) =.dark-toggle,
+:global(html:not(.theme-dark)) .light-toggle,
+button[aria-pressed='false'] .light-toggle {
+  color: var(--tw-text-zorba-100);
+}
+</style>
+
+<script>
+	class ThemeToggle extends HTMLElement {
+		constructor() {
+			super();
+
+			const button = this.querySelector('button')!;
+			const lightToggle = this.querySelector('button span.light')!;
+			const darkToggle = this.querySelector('button span.dark')!;
+
+			/** Set the theme to dark/light mode. */
+			const setTheme = (dark: boolean) => {
+				document.documentElement.classList[dark ? 'add' : 'remove']('theme-dark');
+				button.setAttribute('aria-pressed', String(dark));
+        console.log('theme set to', dark ? 'dark' : 'light');
+			};
+
+			// Toggle the theme when a user clicks the button.
+			button.addEventListener('click', () => setTheme(!this.isDark()));
+
+			// Initialize button state to reflect current theme.
+			setTheme(this.isDark());
+		}
+
+		isDark() {
+			return document.documentElement.classList.contains('theme-dark');
+		}
+	}
+	customElements.define('theme-toggle', ThemeToggle);
+</script>

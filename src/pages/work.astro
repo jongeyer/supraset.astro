@@ -4,14 +4,13 @@ import Markdown from '../components/Markdown.astro';
 
 import { getEntry } from 'astro:content';
 
-const entry = await getEntry('pages', 'about');
+const entry = await getEntry('pages', 'work');
 let Content;
 if (entry) {
   Content = (await entry.render()).Content;
 } else {
   throw new Error('entry is undefined');
 }
-
 ---
 
 <Layout title={entry.data.title} styles="bg-zorba-100 text-ocean-800 py-8 px-8 grid h-screen overflow-auto" >

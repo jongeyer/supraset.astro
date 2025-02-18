@@ -4,10 +4,8 @@ title: "About Me"
 
 # Hi! My name is Jon 👋🏻
 
-I am a front-end engineer leading teams to build performant, data-rich web applications. My expertise centers on UI/UX for effective and engaging data management, presentation, visualization, and analysis. From big to smal
+I am an engineering leader focused on UI/UX and developer experience for data-rich platforms. My expertise is in leading teams to build performant applications for data management, visualization, and analysis.
 
-While my early academic interests focused on physics and astrophysics, I also immersed myself in sculpture and later in pottery. I got an MFA in Design & Technology which was a perfect overlay of the creative and the technical; expression and purpose; abstraction and usability; intuition and reason.
+In my early academic interests I focused on physics and astrophysics, but I also immersed myself in sculpture and later in pottery. I was not satisfied choosing sides between these worlds, but instead I needed to explore areas where these domains intersect. I found it in an MFA program in Design & Technology -- a perfect overlay of the creative and the technical; expression and purpose; abstraction and usability; intuition and reason. (This dichotomy may be a silly simplification... but it's made sense to me.)
 
-These domains intersect in many contexts, but I have been most drawn to UI/UX, data presentation, and data visualization. But I am fortunate to have found inspiration all around me while working on all kinds of things.
-
-After several years honing my skills, I have found that my inspiration and perspiration is best applied to biolding experiences on the web.
+After many years honing my skills, I have found that my inspiration and perspiration is best applied to building experiences for data-rich platforms. In this space I aim to empower people to overcome the complex and the mundane through engagement.

@@ -1,0 +1,30 @@
+---
+// Renders array of social links (icons + text)
+
+import Icon from '../components/Icon.astro';
+import type { iconPaths } from '../components/IconPaths';
+
+/** Icon links to social media — edit these with links to your profiles! */
+const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[] = [
+	{ label: 'linkedin.com/in/jongeyer', href: 'https://linkedin.com/in/jongeyer', icon: 'linkedin-logo' },
+	{ label: 'github.com/jongeyer', href: 'https://github.com/jongeyer', icon: 'github-logo' },
+	{ label: 'jon@supraset.com', href: 'mailto:jon@supraset.com', icon: 'paper-plane-tilt' }
+];
+
+interface Props {
+	showLabels?: boolean;
+}
+const { showLabels } = Astro.props;
+---
+
+<div class="flex flex-wrap justify-around gap-8">
+  {
+    iconLinks.map(({ href, icon, label }) => (
+      <a href={href} class="group text-center no-underline transition-all text-indigo-700 hover:text-indigo-500">
+        <div class="sr-only">{label}</div>
+        <div class={showLabels ? '' : 'opacity-0 group-hover:opacity-90'}>{label}</div>
+        <Icon icon={icon} size={showLabels ? '4em' : '3em'} />
+      </a>
+    ))
+  }
+</div>

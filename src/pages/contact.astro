@@ -1,7 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Markdown from '../components/Markdown.astro';
+import Socials from '../components/Socials.astro';
+
+import { getEntry } from 'astro:content';
+import Icon from '../components/Icon.astro';
+
+const entry = await getEntry('pages', 'contact');
+let Content;
+if (entry) {
+  Content = (await entry.render()).Content;
+} else {
+  throw new Error('entry is undefined');
+}
 ---
 
-<Layout title="Contact">
-  <h1 class="text-4xl font-bold text-gray-500">Contact</h1>
+<Layout title={entry.data.title} styles="bg-emerald-100 text-ocean-800 py-8 px-8 grid h-screen overflow-auto grid-cols=[1fr,10em]" >
+  <div class="mt-[9vh] max-w-screen-md mx-auto text-center">
+    <Markdown>
+      <Content />
+    </Markdown>
+    <Icon icon="handshake" size="10em" />
+  </div>
+  <div class="">
+    <Socials showLabels />
+  </div>
 </Layout>

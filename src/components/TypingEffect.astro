@@ -1,0 +1,39 @@
+---
+// Renders text with typing effect and delay
+
+import { uuid } from '../utils/uuid.js';
+
+interface Props {
+	text: string;
+}
+const { text } = Astro.props;
+const elId = uuid();
+const typingOptions = {
+  speed: 100, // Adjust typing speed here
+  delay: 20000, // Delay before clearing and restarting
+}
+---
+
+<div id={elId} />
+
+<script define:vars={{elId, text, typingOptions}}>
+  let labelRef = document.getElementById(elId);
+  let index = 0;
+	
+  const typingEffect = () => {
+		if (!labelRef) return;
+
+    if (index < text.length) {
+      labelRef.textContent += text.charAt(index);
+      index++;
+      setTimeout(typingEffect, typingOptions.speed); // Typing speed
+    } else {
+      setTimeout(() => {
+        labelRef.textContent = '';
+        index = 0;
+        setTimeout(typingEffect, typingOptions.speed); // Restart typing
+      }, typingOptions.delay);
+    }
+  };
+  typingEffect();
+</script>
