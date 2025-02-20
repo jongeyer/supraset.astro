@@ -1,18 +1,21 @@
 ---
 import '../styles/base.css';
 import { Tooltips } from 'astro-tooltips'
-import Nav from '../components/Nav.astro';
+import Header from '../components/Header.astro';
+import NavigationDesktop from '../components/NavigationDesktop.astro';
+import NavigationMobile from '../components/NavigationMobile.astro';
 // import Personalizer from '../components/Personalizer.astro';
-// import ThemeToggle from '../components/ThemeToggle.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 interface Props {
-	title: string;
+	title?: string;
 	styles?: string;
 	width?: 'full' | 'flex'
+	hideHeader?: boolean;
 }
 
-const { title, styles, width } = Astro.props;
-const formattedTitle = `${title} | Jonathan Geyer`;
-const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center justify-center' : ''} h-screen`;
+const { title, styles, width, hideHeader } = Astro.props;
+const formattedTitle = `${title || 'Supraset'} ≈ Jonathan Geyer`;
+const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center justify-center ' : ' '}h-screen`;
 ---
 
 <!doctype html>
@@ -31,14 +34,30 @@ const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center 
 		<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap" rel="stylesheet">
 		<Tooltips interactive={false} delay={[50, 1000]} />
 	</head>
-	<body class="bg-indigo-900 p-0 m-0 relative">
+	<body class="p-0 m-0 relative">
 		<div class={formattedStyles}>
-			<Nav />
-			<slot />
+			<NavigationMobile />
+			<main class="grid grid-cols-1 lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen">
+				<NavigationDesktop />
+				<div>
+					{!hideHeader && <Header />}
+					<slot />
+				</div>
+				<div class="hidden lg:block absolute bottom-6 right-6 h-6">
+					<ThemeToggle />
+				</div>
+			</main>
 			<!-- <Personalizer /> -->
-			<div class="absolute bottom-6 right-6 h-6">
-				<!-- <ThemeToggle /> -->
-			</div>
 		</div>
 	</body>
 </html>
+
+<style>
+body {
+	background-color: var(--color-ocean-900);
+}
+.theme-light body {
+	background-color: var(--color-zorba-100);
+}
+
+</style>

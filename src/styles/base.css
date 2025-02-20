@@ -1,6 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-heading: Lexend, sans-serif;
+
+  --color-indigo-50: #ebeefa;
+  --color-indigo-100: #d2d9f4;
+  --color-indigo-200: #a9b7ea;
+  --color-indigo-300: #7c92de;
+  --color-indigo-400: #546fd4;
+  --color-indigo-500: #3050c0;
+  --color-indigo-600: #27409b;
+  --color-indigo-700: #1d2f72;
+  --color-indigo-800: #13204e;
+  --color-indigo-900: #090f25;
+  --color-indigo-950: #050814;
+
+  --color-ocean-50: #c0dcfe;
+  --color-ocean-100: #acd1fd;
+  --color-ocean-200: #84bbfc;
+  --color-ocean-300: #5ca4fc;
+  --color-ocean-400: #348efb;
+  --color-ocean-500: #0c78fa;
+  --color-ocean-600: #045eca;
+  --color-ocean-700: #034493;
+  --color-ocean-800: #022b5c;
+  --color-ocean-900: #011125;
+  --color-ocean-950: #000409;
+
+  --color-zorba-50: #eeedeb;
+  --color-zorba-100: #e5e4e1;
+  --color-zorba-200: #d2d0cb;
+  --color-zorba-300: #bfbcb5;
+  --color-zorba-400: #aca99f;
+  --color-zorba-500: #999589;
+  --color-zorba-600: #7d796c;
+  --color-zorba-700: #5f5c52;
+  --color-zorba-800: #413f38;
+  --color-zorba-900: #23221e;
+  --color-zorba-950: #141311;
+
+  --color-mikan-50: #fde9d0;
+  --color-mikan-100: #fde0bd;
+  --color-mikan-200: #fbcd95;
+  --color-mikan-300: #faba6e;
+  --color-mikan-400: #f8a846;
+  --color-mikan-500: #f7951f;
+  --color-mikan-600: #d67908;
+  --color-mikan-700: #a05a06;
+  --color-mikan-800: #6a3c04;
+  --color-mikan-900: #341d02;
+  --color-mikan-950: #190e01;
+
+  --color-emerald-50: #cff3d9;
+  --color-emerald-100: #beefcc;
+  --color-emerald-200: #9ee7b2;
+  --color-emerald-300: #7dde99;
+  --color-emerald-400: #5dd67f;
+  --color-emerald-500: #3cce65;
+  --color-emerald-600: #2aa84d;
+  --color-emerald-700: #1f7b39;
+  --color-emerald-800: #144e24;
+  --color-emerald-900: #08210f;
+  --color-emerald-950: #030b05;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 html, body {
   padding: 0;

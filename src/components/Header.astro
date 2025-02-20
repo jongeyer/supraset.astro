@@ -1,0 +1,43 @@
+<div class="colorized w-full px-8 py-4 text-zorba-50">
+  <div class="text-3xl sm:text-4xl md:text-5xl font-heading font-bold pb-1">Jonathan Geyer</div>
+  <div class="text-base sm:text-lg md:text-xl font-heading tracking-[.1em] sm:tracking-[.2em] md:tracking-[.3em] pl-1">S U P R A S E T</div>
+  <hr class="border-t-2 border-zorba-400 -mb-4 -mx-8 mt-4" />
+</div>
+
+<style>
+  :root {
+      --czd-t: 100%;
+      --czd-b: 0%;
+      --czd-l: 0%;
+      --czd-r: 100%;
+  }
+  @keyframes circular-animation {
+    0% { background-position: var(--czd-r) var(--czd-t); }
+    40% { background-position: var(--czd-l) var(--czd-t); }
+    50% { background-position: var(--czd-l) var(--czd-b); }
+    90% { background-position: var(--czd-r) var(--czd-b); }
+    100% { background-position: var(--czd-r) var(--czd-t); }
+  }
+  
+  .colorized {
+      background-image: conic-gradient(
+          hsl(60 40% 60%),
+          hsl(100 20% 55%),
+          hsl(140 30% 50%),
+          hsl(180 50% 45%),
+          hsl(220 70% 40%),
+          hsl(260 80% 45%),
+          hsl(300 70% 45%),
+          hsl(340 60% 50%),
+          hsl(60 40% 60%)
+      );
+      background-size: 200% 200%;
+      background-position: 50% 100%;
+      animation: circular-animation 120s ease-in-out infinite;
+  }
+  .colorized > :global(*) {
+    mix-blend-mode: difference;
+    -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.85));
+  }
+  </style>
+  

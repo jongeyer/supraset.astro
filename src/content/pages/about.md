@@ -2,7 +2,7 @@
 title: "About Me"
 ---
 
-# Hi! My name is Jon 👋🏻
+# Hi! My name is Jon
 
 I am an engineering leader focused on UI/UX and developer experience for data-rich platforms. My expertise is in leading teams to build performant applications for data management, visualization, and analysis.
 

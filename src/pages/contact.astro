@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Markdown from '../components/Markdown.astro';
 import Socials from '../components/Socials.astro';
+import Icon from '../components/Icon.astro';
 
 import { getEntry } from 'astro:content';
-import Icon from '../components/Icon.astro';
 
 const entry = await getEntry('pages', 'contact');
 let Content;
@@ -15,12 +15,16 @@ if (entry) {
 }
 ---
 
-<Layout title={entry.data.title} styles="bg-emerald-100 text-ocean-800 py-8 px-8 grid h-screen overflow-auto grid-cols=[1fr,10em]" >
-  <div class="mt-[9vh] max-w-screen-md mx-auto text-center">
+<Layout
+  title={entry.data.title}
+  styles="grid h-screen overflow-auto bg-emerald-900 text-emerald-200 [.theme-light_&]:bg-emerald-50 [.theme-light_&]:text-zorba-800"
+>
+  <div class="mt-12 max-w-screen mx-auto text-center">
+    <Icon icon="handshake" size="8em" />
+    <Icon icon="address-book" size="8em" />
     <Markdown>
       <Content />
     </Markdown>
-    <Icon icon="handshake" size="10em" />
   </div>
   <div class="">
     <Socials showLabels />

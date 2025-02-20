@@ -12,7 +12,7 @@ I’ve had interesting jobs over the years and I’ve learned a lot from each. I
 - Lead Frontend Engineer for e-commerce data platform
 - Frontend Dev Rel for e-commerce data platform
 - Senior Frontend Engineer at B2B e-commerce platform
-- Code for Hawaii volunteer
+- Volunteer with Code for Hawaii
 - Web Application Developer for a national marine sanctuary
 - Associate Producer of educational software
 - Freelance web designer, web developer

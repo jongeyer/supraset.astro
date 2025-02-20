@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Markdown from '../components/Markdown.astro';
+import Icon from '../components/Icon.astro';
 
 import { getEntry } from 'astro:content';
 
@@ -13,8 +14,14 @@ if (entry) {
 }
 ---
 
-<Layout title={entry.data.title} styles="bg-zorba-100 text-ocean-800 py-8 px-8 grid h-screen overflow-auto" >
-  <div class="mt-[9vh]">
+<Layout 
+  title={entry.data.title}
+  styles="grid h-screen overflow-auto bg-mikan-900 text-zorba-200 [.theme-light_&]:bg-zorba-50 [.theme-light_&]:text-zorba-800"
+>
+  <div class="my-12 px-8">
+    <Icon icon="compass" size="6em" />
+    <Icon icon="desktop" size="6em" />
+    <Icon icon="file-code" size="6em" />
     <Markdown>
       <Content />
     </Markdown>

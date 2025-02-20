@@ -3,44 +3,45 @@ import Layout from '../layouts/Layout.astro';
 import NextButton from '../components/NextButton.astro';
 import TypingEffect from '../components/TypingEffect.astro';
 // import Textualizer from '../components/Textualizer.astro';
-import Socials from '../components/Socials.astro';
+// import Socials from '../components/Socials.astro';
 
 const personalLabel = "Front-end Engineer, Designer, Data Enthusiast";
 ---
 
-<Layout title="Welcome to Astro." width="full">
-    <main class="flex h-screen relative z-0">
-        <div class="flex-1" />
-        <div class="colorized relative grid flex-0 grid-rows-[6fr,auto,4fr,auto,1fr,4em] gap-y-4 justify-center">
-            <div />
-            <div class="px-4 md:px-6 text-center text-zorba-50">
-                <h1 class="text-4xl md:text-6xl font-heading font-bold pb-3">Jonathan Geyer</h1>
-                <div class="text-sm md:text-xl font-heading tracking-[0.95em] md:tracking-[1.2em] -mr-4 md:-mr-6">S U P R A S E T</div>
-            </div>
-            <div />
-            <NextButton to="./about" />
-            <div />
-            <div class="text-sm md:text-xl px-4 md:px-6 font-heading tracking-wider font-light text-zorba-50 mx-auto drop-shadow-sm">
-                <TypingEffect text={personalLabel} />
-                <!-- <Textualizer text={personalLabel}>
-                    <TypingEffect text={personalLabel} />
-                </Textualizer> -->
-            </div>
-            <div class="max-w-screen-md w-auto mx-auto mb-8">
-                <Socials />
-            </div>
+<Layout width="full" hideHeader>
+    <div class="w-full colorized grid grid-rows-[6fr_auto_4fr_auto_1fr] gap-y-4 justify-center">
+        <div class="row-start-2 px-2 md:px-6 text-center text-zorba-50">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-heading font-bold pb-3">Jonathan Geyer</h1>
+            <div class="text-base sm:text-lg md:text-xl font-heading tracking-[.775em] sm:tracking-[1em] md:tracking-[1.2em] pl-4 md:pl-6">S U P R A S E T</div>
         </div>
-        <div class="flex-1" />
-    </main>
+        <div class="row-start-4 text-center">
+            <NextButton to="./about" />
+        </div>
+        <div class="row-start-6 text-sm md:text-xl px-4 md:px-6 mb-8 font-heading tracking-wider font-light text-zorba-50 mx-auto drop-shadow-xs">
+            <TypingEffect text={personalLabel} />
+            <!-- <Textualizer text={personalLabel}>
+                <TypingEffect text={personalLabel} />
+            </Textualizer> -->
+        </div>
+        <!-- <div class="row-start-7 max-w-(--breakpoint-md) w-auto mx-auto mb-8">
+            <Socials />
+        </div> -->
+    </div>
 </Layout>
 
 <style>
+:root {
+    --czd-t: 95%;
+    --czd-b: 5%;
+    --czd-l: 5%;
+    --czd-r: 95%;
+}
 @keyframes circular-animation {
-  0% { background-position: 0% calc(91%); }
-  25% { background-position: 100% 91%; }
-  50% { background-position: 100% 0%; }
-  75% { background-position: 0% 0%; }
-  100% { background-position: 0% 91%; }
+  0% { background-position: var(--czd-r) var(--czd-t); }
+  25% { background-position: var(--czd-l) var(--czd-t); }
+  50% { background-position: var(--czd-l) var(--czd-b); }
+  75% { background-position: var(--czd-r) var(--czd-b); }
+  100% { background-position: var(--czd-r) var(--czd-t); }
 }
 
 .colorized {
@@ -56,12 +57,7 @@ const personalLabel = "Front-end Engineer, Designer, Data Enthusiast";
         hsl(60 40% 60%)
     );
     background-size: 200% 200%;
-    animation: circular-animation 10s ease-in-out infinite;
-}
-.blend-alpha {
-	display: inline-block;
-	mix-blend-mode: difference;
-	-webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.85));
+    animation: circular-animation 16s ease-in-out infinite;
 }
 .colorized > :global(*) {
 	display: inline-block;
