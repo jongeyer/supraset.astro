@@ -2,6 +2,7 @@
 import '../styles/base.css';
 import { Tooltips } from 'astro-tooltips'
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import NavigationDesktop from '../components/NavigationDesktop.astro';
 import NavigationMobile from '../components/NavigationMobile.astro';
 // import Personalizer from '../components/Personalizer.astro';
@@ -39,11 +40,12 @@ const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center 
 			<NavigationMobile />
 			<main class="grid grid-cols-1 lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen">
 				<NavigationDesktop />
-				<div>
+				<div class="flex flex-col min-h-screen">
 					{!hideHeader && <Header />}
 					<slot />
+					{<Footer />}
 				</div>
-				<div class="hidden lg:block absolute bottom-6 right-6 h-6">
+				<div class="hidden lg:block fixed bottom-6 right-6 h-6">
 					<ThemeToggle />
 				</div>
 			</main>
