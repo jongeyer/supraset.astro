@@ -35,7 +35,7 @@ const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center 
 		<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap" rel="stylesheet">
 		<Tooltips interactive={false} delay={[50, 1000]} />
 	</head>
-	<body class="p-0 m-0 relative">
+	<body class="p-0 m-0 relative transition-all duration-1000 ease-in-out">
 		<div class={formattedStyles}>
 			<NavigationMobile />
 			<main class="grid grid-cols-1 lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen">
@@ -56,10 +56,12 @@ const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center 
 
 <style>
 body {
-	background-color: var(--color-ocean-900);
+	background: linear-gradient(75deg, var(--color-ocean-900) 40%, var(--color-zorba-100) 60%);
+	background-position: 0 0;
+	background-size: 300% 100%;
 }
 .theme-light body {
-	background-color: var(--color-zorba-100);
+	background-position: 100% 0;
 }
 
 </style>
