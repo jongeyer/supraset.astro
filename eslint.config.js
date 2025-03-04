@@ -1,12 +1,18 @@
-import eslintPluginAstro from 'eslint-plugin-astro';
+import eslintPluginAstro from 'eslint-plugin-astro'
+import eslintPluginPrettierRecommended from 'eslint-config-prettier'
+import tsEslint from 'typescript-eslint'
+
 export default [
-  // add more generic rule sets here, such as:
-  // js.configs.recommended,
+  ...tsEslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
+  eslintPluginPrettierRecommended,
   {
+    // add custom rules here
     rules: {
-      // override/add rules settings here, such as:
-      // "astro/no-set-html-directive": "error"
+      semi: ['error', 'never'],
+      'no-console': 'warn',
+      'no-unused-vars': 'warn',
+      'no-undef': 'warn'
     }
   }
-];
+]

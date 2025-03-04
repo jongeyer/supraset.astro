@@ -1,26 +1,45 @@
 ---
 // Renders array of social links (icons + text)
 
-import Icon from '@/components/Icon.astro';
-import type { iconPaths } from '@/components/IconPaths';
+import Icon from '@/components/Icon.astro'
+import type { iconPaths } from '@/components/IconPaths'
 
 /** Icon links to social media — edit these with links to your profiles! */
-const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[] = [
-	{ label: 'linkedin.com/in/jongeyer', href: 'https://linkedin.com/in/jongeyer', icon: 'linkedin-logo' },
-	{ label: 'github.com/jongeyer', href: 'https://github.com/jongeyer', icon: 'github-logo' },
-	{ label: 'jon@supraset.com', href: 'mailto:jon@supraset.com', icon: 'paper-plane-tilt' }
-];
+const iconLinks: {
+  label: string
+  href: string
+  icon: keyof typeof iconPaths
+}[] = [
+  {
+    label: 'linkedin.com/in/jongeyer',
+    href: 'https://linkedin.com/in/jongeyer',
+    icon: 'linkedin-logo',
+  },
+  {
+    label: 'github.com/jongeyer',
+    href: 'https://github.com/jongeyer',
+    icon: 'github-logo',
+  },
+  {
+    label: 'jon@supraset.com',
+    href: 'mailto:jon@supraset.com',
+    icon: 'paper-plane-tilt',
+  },
+]
 
 interface Props {
-	showLabels?: boolean;
+  showLabels?: boolean
 }
-const { showLabels } = Astro.props;
+const { showLabels } = Astro.props
 ---
 
 <div class="flex flex-wrap justify-around gap-8">
   {
     iconLinks.map(({ href, icon, label }) => (
-      <a href={href} class="group text-center no-underline transition-all text-zorba-500 hover:text-zorba-600">
+      <a
+        href={href}
+        class="group text-center no-underline transition-all text-zorba-500 hover:text-zorba-600"
+      >
         <div class="sr-only">{label}</div>
         <div class={showLabels ? '' : 'hidden'}>{label}</div>
         <Icon icon={icon} size={showLabels ? '3em' : '2em'} />

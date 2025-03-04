@@ -1,6 +1,6 @@
 ---
-import NavigationLinks from './NavigationLinks.astro';
-import ThemeToggle from './ThemeToggle.astro';
+import NavigationLinks from './NavigationLinks.astro'
+import ThemeToggle from './ThemeToggle.astro'
 ---
 
 <div class="relative">
@@ -13,7 +13,7 @@ import ThemeToggle from './ThemeToggle.astro';
     <div class="w-5 h-5 flex flex-col justify-between">
       {
         Array.from({ length: 3 }).map((_, index) => (
-          <span class="block h-1 w-full transition-all bg-zorba-700 md:bg-zorba-400 duration-300 ease-in-out"></span>
+          <span class="block h-1 w-full transition-all bg-zorba-700 md:bg-zorba-400 duration-300 ease-in-out" />
         ))
       }
     </div>
@@ -62,23 +62,23 @@ import ThemeToggle from './ThemeToggle.astro';
 
 <script>
   // Client-side JavaScript
-  const menuButton = document.getElementById('menuButton');
-  const menuOverlay = document.getElementById('menuOverlay');
-  let isOpen = false;
+  const menuButton = document.getElementById('menuButton')
+  const menuOverlay = document.getElementById('menuOverlay')
+  let isOpen = false
 
   function toggleMenu() {
-    isOpen = !isOpen;
-    menuButton?.classList.toggle('menu-open');
-    menuOverlay?.classList.toggle('overlay-open');
-    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+    isOpen = !isOpen
+    menuButton?.classList.toggle('menu-open')
+    menuOverlay?.classList.toggle('overlay-open')
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto'
   }
 
   // Add click event listener
-  menuButton?.addEventListener('click', toggleMenu);
+  menuButton?.addEventListener('click', toggleMenu)
 
   // Add click event listeners to menu items
-  const menuItems = document.querySelectorAll('#menuOverlay a');
+  const menuItems = document.querySelectorAll('#menuOverlay a')
   menuItems.forEach(item => {
-    item.addEventListener('click', toggleMenu);
-  });
+    item.addEventListener('click', toggleMenu)
+  })
 </script>

@@ -1,17 +1,17 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Markdown from '@/components/Markdown.astro';
-import Socials from '@/components/Socials.astro';
-import Icon from '@/components/Icon.astro';
+import Layout from '@/layouts/Layout.astro'
+import Markdown from '@/components/Markdown.astro'
+import Socials from '@/components/Socials.astro'
+import Icon from '@/components/Icon.astro'
 
-import { getEntry } from 'astro:content';
+import { getEntry } from 'astro:content'
 
-const entry = await getEntry('pages', 'contact');
-let Content;
+const entry = await getEntry('pages', 'contact')
+let Content
 if (entry) {
-  Content = (await entry.render()).Content;
+  Content = (await entry.render()).Content
 } else {
-  throw new Error('entry is undefined');
+  throw new Error('entry is undefined')
 }
 ---
 
