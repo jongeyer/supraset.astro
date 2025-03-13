@@ -38,7 +38,7 @@ const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center 
 	<body class="p-0 m-0 relative transition-all duration-1000 ease-in-out">
 		<div class={formattedStyles}>
 			<NavigationMobile />
-			<main class="grid grid-cols-1 lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen">
+			<main class="lg:grid lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen">
 				<NavigationDesktop />
 				<div class="flex flex-col min-h-screen">
 					{!hideHeader && <Header />}
