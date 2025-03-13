@@ -1,0 +1,86 @@
+---
+import TimeSeries from './TimeSeries.astro'
+
+const STORAGE_KEY = 'listeners-data'
+const MAX_DATA_POINTS = 48
+const DEFAULT_VALUE = 0
+---
+
+<TimeSeries
+  storageKey={STORAGE_KEY}
+  label="Listeners"
+  maxDataPoints={MAX_DATA_POINTS}
+  defaultValue={DEFAULT_VALUE}
+/>
+
+<script define:vars={{ STORAGE_KEY }}>
+  // Get the time series manager from the component
+  let timeSeriesManager
+
+  // We need to wait until the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Find our TimeSeries component
+    const component = document.querySelector(
+      `[data-storage-key="${STORAGE_KEY}"]`
+    )
+    if (component && component.timeSeriesManager) {
+      timeSeriesManager = component.timeSeriesManager
+
+      // Start tracking event listeners
+      trackEventListeners()
+    } else {
+      // Fallback: search by global variable
+      for (const key in window) {
+        if (
+          key.startsWith('timeSeriesManager_') &&
+          window[key].storageKey === STORAGE_KEY
+        ) {
+          timeSeriesManager = window[key]
+          trackEventListeners()
+          break
+        }
+      }
+    }
+  })
+
+  function trackEventListeners() {
+    // Using a counter approach since there's no direct API to count all listeners
+    let listenerCount = 0
+
+    // Store original methods
+    const originalAddEventListener = EventTarget.prototype.addEventListener
+    const originalRemoveEventListener =
+      EventTarget.prototype.removeEventListener
+
+    // Override addEventListener
+    EventTarget.prototype.addEventListener = function (...args) {
+      listenerCount++
+      return originalAddEventListener.apply(this, args)
+    }
+
+    // Override removeEventListener
+    EventTarget.prototype.removeEventListener = function (...args) {
+      listenerCount = Math.max(0, listenerCount - 1)
+      return originalRemoveEventListener.apply(this, args)
+    }
+
+    const debouncer = 1000
+    let lastUpdateTime = performance.now()
+
+    const update = () => {
+      const now = performance.now()
+
+      if (now - lastUpdateTime >= debouncer) {
+        // Update time series with current listener count
+        timeSeriesManager.addDataPoint(listenerCount)
+
+        lastUpdateTime = now
+      }
+
+      requestAnimationFrame(update)
+    }
+
+    // Start monitoring
+    update()
+  }
+</script>

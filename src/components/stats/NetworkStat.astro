@@ -1,0 +1,36 @@
+---
+
+---
+
+<div class="flex flex-col items-center">
+  <div class="font-mono text-mikan-600" id="network-size">--</div>
+  <div>Downloaded (KB)</div>
+</div>
+
+<script>
+  const networkSizeEl = document.getElementById('network-size')
+
+  // Function to format bytes to KB with one decimal
+  const formatKB = (bytes: number) => (bytes / 1024).toFixed(1)
+
+  // Calculate total download size when page is fully loaded
+  window.addEventListener('load', () => {
+    if (!networkSizeEl || !performance || !performance.getEntriesByType) return
+
+    // Get all network resources
+    const resources = performance.getEntriesByType('resource')
+
+    // Calculate total transfer size
+    const totalBytes = resources.reduce((total, resource: PerformanceEntry) => {
+      // Some resources might not have transferSize
+      const resourceTiming = resource as PerformanceResourceTiming
+      return total + (resourceTiming.transferSize || 0)
+    }, 0)
+
+    // Update the display with KB value
+    networkSizeEl.textContent = formatKB(totalBytes)
+
+    // Optional: Count of requests could be displayed as tooltip or separate element
+    // const requestCount = resources.length;
+  })
+</script>

@@ -1,0 +1,71 @@
+---
+import TimeSeries from './TimeSeries.astro'
+
+const STORAGE_KEY = 'elems-data'
+const MAX_DATA_POINTS = 48
+const DEFAULT_VALUE = 0
+---
+
+<TimeSeries
+  storageKey={STORAGE_KEY}
+  label="Elements"
+  maxDataPoints={MAX_DATA_POINTS}
+  defaultValue={DEFAULT_VALUE}
+/>
+
+<script define:vars={{ STORAGE_KEY }}>
+  // Get the time series manager from the component
+  let timeSeriesManager
+
+  // We need to wait until the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Find our TimeSeries component
+    const component = document.querySelector(
+      `[data-storage-key="${STORAGE_KEY}"]`
+    )
+    if (component && component.timeSeriesManager) {
+      timeSeriesManager = component.timeSeriesManager
+
+      // Start tracking element count
+      trackElements()
+    } else {
+      // Fallback: search by global variable
+      for (const key in window) {
+        if (
+          key.startsWith('timeSeriesManager_') &&
+          window[key].storageKey === STORAGE_KEY
+        ) {
+          timeSeriesManager = window[key]
+          trackElements()
+          break
+        }
+      }
+    }
+  })
+
+  function trackElements() {
+    const debouncer = 1000
+    let lastUpdateTime = performance.now()
+
+    const update = () => {
+      const now = performance.now()
+
+      if (now - lastUpdateTime >= debouncer) {
+        // Count all DOM elements
+        const elemValue = document.querySelectorAll('*').length
+
+        // Update time series
+        timeSeriesManager.addDataPoint(elemValue)
+
+        lastUpdateTime = now
+      }
+
+      requestAnimationFrame(update)
+    }
+
+    // Small delay to ensure DOM is fully loaded before first count
+    setTimeout(() => {
+      update()
+    }, 100)
+  }
+</script>

@@ -1,0 +1,252 @@
+---
+import { uuidAlpha } from '@/utils/uuid.js'
+
+interface Props {
+  storageKey: string
+  label: string
+  maxDataPoints?: number
+  defaultValue?: number
+}
+
+const {
+  storageKey,
+  label,
+  maxDataPoints = 48,
+  defaultValue = 0,
+} = Astro.props
+const elId = uuidAlpha()
+const valueId = uuidAlpha()
+---
+
+<div>
+  <div class="flex w-19 items-center justify-between pb-0.5">
+    <span class="mr-2 tracking-wide">{label}</span>
+    <span id={valueId} class="text-mikan-600 ml-1">##</span>
+  </div>
+  <div id={elId} class="w-19 h-5"></div>
+</div>
+
+<script
+  define:vars={{
+    storageKey,
+    maxDataPoints,
+    defaultValue,
+    elId,
+    valueId,
+  }}
+>
+  // Create sparkline canvas
+  const sparklineContainer = document.querySelector(`#${elId}`)
+  const valueDisplay = document.querySelector(`#${valueId}`)
+  const canvas = document.createElement('canvas')
+  canvas.width = 76
+  canvas.height = 20
+  sparklineContainer.appendChild(canvas)
+  const ctx = canvas.getContext('2d')
+
+  /**
+   * Manages time series data with localStorage persistence
+   */
+  class TimeSeriesManager {
+    constructor(storageKey, maxDataPoints, defaultValue) {
+      this.storageKey = storageKey
+      this.maxDataPoints = maxDataPoints
+      this.defaultValue = defaultValue
+      this.data = this.loadSavedData()
+      this.ensureDataLength()
+    }
+
+    loadSavedData() {
+      try {
+        const savedData = localStorage.getItem(this.storageKey)
+        if (savedData) {
+          const parsedData = JSON.parse(savedData)
+
+          // Filter out data older than maxDataPoints seconds
+          const now = Date.now()
+          const recentData = parsedData.filter(
+            item => now - item.timestamp <= this.maxDataPoints * 1000
+          )
+
+          // If we have recent data, use it
+          if (recentData.length > 0) {
+            return recentData
+          }
+        }
+      } catch (err) {
+        console.error(
+          `Error loading data from localStorage for ${this.storageKey}:`,
+          err
+        )
+      }
+
+      // Default: create array with default values and timestamps
+      return this.createDefaultData()
+    }
+
+    createDefaultData() {
+      const defaultData = []
+      const now = Date.now()
+      for (let i = 0; i < this.maxDataPoints; i++) {
+        defaultData.push({
+          value: this.defaultValue,
+          timestamp: now - (this.maxDataPoints - i) * 1000,
+        })
+      }
+      return defaultData
+    }
+
+    ensureDataLength() {
+      // If we somehow have too many points, trim from the front
+      while (this.data.length > this.maxDataPoints) {
+        this.data.shift()
+      }
+
+      // If we have too few points, add dummy points at the beginning
+      const now = Date.now()
+      while (this.data.length < this.maxDataPoints) {
+        // Add at the beginning with older timestamps
+        this.data.unshift({
+          value: this.defaultValue,
+          timestamp: now - (this.maxDataPoints - this.data.length + 1) * 1000,
+        })
+      }
+
+      return this.data
+    }
+
+    addDataPoint(value) {
+      // Update the display
+      valueDisplay.textContent =
+        typeof value === 'number' ? value.toLocaleString() : value
+
+      // Add to data
+      const currentTime = Date.now()
+      this.data.shift()
+      this.data.push({
+        value,
+        timestamp: currentTime,
+      })
+
+      this.ensureDataLength()
+      this.saveToLocalStorage()
+      this.drawSparkline()
+
+      return this.data
+    }
+
+    saveToLocalStorage() {
+      try {
+        localStorage.setItem(this.storageKey, JSON.stringify(this.data))
+      } catch (err) {
+        console.error(
+          `Error saving data to localStorage for ${this.storageKey}:`,
+          err
+        )
+      }
+    }
+
+    getCurrentValue() {
+      return this.data[this.data.length - 1]?.value || this.defaultValue
+    }
+
+    getValues() {
+      return this.data.map(item => item.value)
+    }
+
+    drawSparkline() {
+      if (!ctx) return
+
+      // Get just the values for drawing
+      const values = this.data.map(item => item.value)
+
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      // Find min and max for scaling
+      const max = Math.max(...values, 60) // At least 60 for scale
+      const min = Math.min(...values, 0)
+      const range = Math.max(max - min, 1) // Avoid division by zero
+
+      // Ensure we use all available canvas width
+      const step = canvas.width / (values.length - 1)
+
+      // Draw filled area under the sparkline
+      ctx.beginPath()
+
+      // Start from bottom-left
+      ctx.moveTo(0, canvas.height)
+
+      // Draw line to first data point
+      const firstY =
+        canvas.height -
+        ((values[0] - min) / range) * canvas.height * 0.9 +
+        canvas.height * 0.05
+      ctx.lineTo(0, firstY)
+
+      // Draw the sparkline
+      for (let i = 0; i < values.length; i++) {
+        const x = i * step
+        const y =
+          canvas.height -
+          ((values[i] - min) / range) * canvas.height * 0.9 +
+          canvas.height * 0.05
+        ctx.lineTo(x, y)
+      }
+
+      // Complete the path to form a closed shape
+      ctx.lineTo(canvas.width, canvas.height) // Bottom right
+      ctx.closePath()
+
+      // Fill with semi-transparent emerald
+      ctx.fillStyle = 'rgba(214, 121, 8, 0.1)'
+      ctx.fill()
+
+      // Draw the line on top
+      ctx.beginPath()
+      for (let i = 0; i < values.length; i++) {
+        const x = i * step
+        const y =
+          canvas.height -
+          ((values[i] - min) / range) * canvas.height * 0.9 +
+          canvas.height * 0.05
+
+        if (i === 0) {
+          ctx.moveTo(x, y)
+        } else {
+          ctx.lineTo(x, y)
+        }
+      }
+
+      ctx.strokeStyle = '#d67908' // mikan-600
+      ctx.lineWidth = 1
+      ctx.stroke()
+    }
+  }
+
+  // Create instance and expose to window for external access
+  const timeSeriesManager = new TimeSeriesManager(
+    storageKey,
+    maxDataPoints,
+    defaultValue
+  )
+
+  // Initial draw
+  timeSeriesManager.drawSparkline()
+
+  // Update display with current value
+  valueDisplay.textContent = timeSeriesManager
+    .getCurrentValue()
+    .toLocaleString()
+
+  // Expose manager to allow external data updates
+  window[`timeSeriesManager_${elId}`] = timeSeriesManager
+
+  // For convenience in debugging - not required for operation
+  document.addEventListener('DOMContentLoaded', () => {
+    const componentElement = document.querySelector(`#${elId}`).parentNode
+    if (componentElement) {
+      componentElement.timeSeriesManager = timeSeriesManager
+    }
+  })
+</script>

@@ -1,0 +1,37 @@
+---
+
+---
+
+<div class="flex flex-col items-center">
+  <div class="font-mono" id="lcp-value">--</div>
+  <div>LCP (ms)</div>
+</div>
+
+<script>
+  const lcpValueEl = document.getElementById('lcp-value')
+
+  // Use web-vitals library if you have it or PerformanceObserver directly
+  if ('PerformanceObserver' in window) {
+    const lcpObserver = new PerformanceObserver(entryList => {
+      const entries = entryList.getEntries()
+      const lastEntry = entries[entries.length - 1]
+
+      if (lcpValueEl && lastEntry) {
+        // Round to whole number for cleaner display
+        const lcpTime = Math.round(lastEntry.startTime)
+        lcpValueEl.textContent = lcpTime.toString()
+
+        // Optional: Color coding based on performance
+        if (lcpTime < 2500) {
+          lcpValueEl.classList.add('text-emerald-500')
+        } else if (lcpTime < 4000) {
+          lcpValueEl.classList.add('text-amber-500')
+        } else {
+          lcpValueEl.classList.add('text-red-500')
+        }
+      }
+    })
+
+    lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true })
+  }
+</script>

@@ -1,0 +1,67 @@
+---
+import TimeSeries from './TimeSeries.astro'
+
+const STORAGE_KEY = 'fps-data'
+const MAX_DATA_POINTS = 48
+const DEFAULT_VALUE = 60
+---
+
+<TimeSeries
+  storageKey={STORAGE_KEY}
+  label="FPS"
+  maxDataPoints={MAX_DATA_POINTS}
+  defaultValue={DEFAULT_VALUE}
+/>
+
+<script define:vars={{ STORAGE_KEY }}>
+  // Get the time series manager from the component
+  let timeSeriesManager
+
+  // We need to wait until the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Find our TimeSeries component
+    const component = document.querySelector(
+      `[data-storage-key="${STORAGE_KEY}"]`
+    )
+    if (component && component.timeSeriesManager) {
+      timeSeriesManager = component.timeSeriesManager
+
+      // Start tracking FPS
+      trackFPS()
+    } else {
+      // Fallback: search by global variable (might be needed if DOMContentLoaded already fired)
+      for (const key in window) {
+        if (
+          key.startsWith('timeSeriesManager_') &&
+          window[key].storageKey === STORAGE_KEY
+        ) {
+          timeSeriesManager = window[key]
+          trackFPS()
+          break
+        }
+      }
+    }
+  })
+
+  function trackFPS() {
+    const debouncer = 1000
+    let lastFrameTime = performance.now()
+    let lastUpdateTime = performance.now()
+
+    const update = () => {
+      const now = performance.now()
+      const delta = now - lastFrameTime
+      lastFrameTime = now
+      const fpsValue = Math.round(debouncer / delta)
+
+      if (now - lastUpdateTime >= debouncer) {
+        timeSeriesManager.addDataPoint(fpsValue)
+        lastUpdateTime = now
+      }
+
+      requestAnimationFrame(update)
+    }
+
+    update()
+  }
+</script>

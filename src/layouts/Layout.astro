@@ -6,6 +6,7 @@ import Footer from '@/components/Footer.astro'
 import NavigationDesktop from '@/components/NavigationDesktop.astro'
 import NavigationMobile from '@/components/NavigationMobile.astro'
 // import Personalizer from '@/components/Personalizer.astro';
+import Stats from '@/components/stats/Stats.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 interface Props {
 	title?: string;
@@ -44,6 +45,13 @@ const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center 
 					{!hideHeader && <Header />}
 					<slot />
 					{<Footer />}
+				</div>
+				<div class="
+					mix-blend-difference
+					relative w-full pt-4 pb-16 border-t border-zorba-600 bg-indigo-900/25
+					lg:fixed lg:bottom-6 lg:left-6 lg:border-0 lg:bg-transparent
+				">
+					<Stats />
 				</div>
 				<div class="hidden lg:block fixed bottom-6 right-6 h-6">
 					<ThemeToggle />
