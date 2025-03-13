@@ -9,10 +9,10 @@ import NavigationMobile from '@/components/NavigationMobile.astro'
 import Stats from '@/components/stats/Stats.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 interface Props {
-	title?: string;
-	styles?: string;
-	width?: 'full' | 'flex'
-	hideHeader?: boolean;
+  title?: string
+  styles?: string
+  width?: 'full' | 'flex'
+  hideHeader?: boolean
 }
 
 const { title, styles, width, hideHeader } = Astro.props
@@ -26,50 +26,81 @@ const formattedStyles = `
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Jonathan Geyer - Front-end Engineer, Designer, Data Enthusiast" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="author" content="Jonathan Geyer" />
-		<meta name="keywords" content="Jonathan Geyer, web developer, front-end engineer, portfolio, Vue, Vite, Typescript" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{formattedTitle}</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap" rel="stylesheet">
-		<Tooltips interactive={false} delay={[50, 1000]} />
-	</head>
-	<body class="p-0 m-0 relative transition-all duration-1000 ease-in-out">
-		<div class={formattedStyles}>
-			<NavigationMobile />
-			<main class="lg:grid lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen">
-				<NavigationDesktop />
-				<div class="flex flex-col min-h-screen">
-					{!hideHeader && <Header />}
-					<slot />
-					{<Footer />}
-					<div class="relative w-full pt-4 pb-16 border-t border-zorba-600 bg-zorba-900/10">
-						<Stats />
-					</div>
-				</div>
-				<div class="hidden lg:block fixed bottom-6 right-6 h-6">
-					<ThemeToggle />
-				</div>
-			</main>
-			<!-- <Personalizer /> -->
-		</div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jonathan Geyer - Front-end Engineer, Designer, Data Enthusiast"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="Jonathan Geyer" />
+    <meta
+      name="keywords"
+      content="Jonathan Geyer, web developer, front-end engineer, portfolio, Vue, Vite, Typescript"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{formattedTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Google Analytics -->
+    <script
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-W2526JMR42"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-W2526JMR42')
+    </script>
+
+    <Tooltips interactive={false} delay={[50, 1000]} />
+  </head>
+  <body class="p-0 m-0 relative transition-all duration-1000 ease-in-out">
+    <div class={formattedStyles}>
+      <NavigationMobile />
+      <main
+        class="lg:grid lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen"
+      >
+        <NavigationDesktop />
+        <div class="flex flex-col min-h-screen">
+          {!hideHeader && <Header />}
+          <slot />
+          {(<Footer />)}
+          <div
+            class="relative w-full pt-4 pb-16 border-t border-zorba-600 bg-zorba-900/10"
+          >
+            <Stats />
+          </div>
+        </div>
+        <div class="hidden lg:block fixed bottom-6 right-6 h-6">
+          <ThemeToggle />
+        </div>
+      </main>
+      <!-- <Personalizer /> -->
+    </div>
+  </body>
 </html>
 
 <style>
-body {
-	background: linear-gradient(75deg, var(--color-ocean-900) 40%, var(--color-zorba-100) 60%);
-	background-position: 0 0;
-	background-size: 300% 100%;
-}
-.theme-light body {
-	background-position: 100% 0;
-}
-
+  body {
+    background: linear-gradient(
+      75deg,
+      var(--color-ocean-900) 40%,
+      var(--color-zorba-100) 60%
+    );
+    background-position: 0 0;
+    background-size: 300% 100%;
+  }
+  .theme-light body {
+    background-position: 100% 0;
+  }
 </style>
