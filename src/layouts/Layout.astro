@@ -17,7 +17,11 @@ interface Props {
 
 const { title, styles, width, hideHeader } = Astro.props
 const formattedTitle = `${title || 'Supraset'} ≈ Jonathan Geyer`
-const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center justify-center ' : ' '}h-screen`;
+const formattedStyles = `
+	${styles || ''} ${width == 'flex' ? 'flex items-center justify-center ' : ' '}
+	h-screen
+	bg-indigo-900 text-zorba-200 [.theme-light_&]:bg-zorba-50 [.theme-light_&]:text-zorba-800
+`
 ---
 
 <!doctype html>
@@ -45,13 +49,9 @@ const formattedStyles = `${styles || ''} ${width == 'flex' ? 'flex items-center 
 					{!hideHeader && <Header />}
 					<slot />
 					{<Footer />}
-				</div>
-				<div class="
-					mix-blend-difference
-					relative w-full pt-4 pb-16 border-t border-zorba-600 bg-indigo-900/25
-					lg:fixed lg:bottom-6 lg:left-6 lg:border-0 lg:bg-transparent
-				">
-					<Stats />
+					<div class="relative w-full pt-4 pb-16 border-t border-zorba-600 bg-zorba-900/10">
+						<Stats />
+					</div>
 				</div>
 				<div class="hidden lg:block fixed bottom-6 right-6 h-6">
 					<ThemeToggle />

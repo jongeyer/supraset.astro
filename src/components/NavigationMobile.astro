@@ -81,4 +81,11 @@ import ThemeToggle from './ThemeToggle.astro'
   menuItems.forEach(item => {
     item.addEventListener('click', toggleMenu)
   })
+  
+  // Add keydown event listener for Escape key
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isOpen) {
+      toggleMenu()
+  }
+  })
 </script>

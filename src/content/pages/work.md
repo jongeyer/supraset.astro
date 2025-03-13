@@ -1,6 +1,6 @@
 ---
 title: "Work"
-styles: "bg-zorba-100 text-zorba-800"
+styles: ""
 ---
 
 # Work
