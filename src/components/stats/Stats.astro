@@ -6,10 +6,13 @@ import LCPStat from './LCPStat.astro'
 import NetworkStat from './NetworkStat.astro'
 ---
 
-<div class="flex justify-center gap-12 text-[10px] text-zorba-500">
-  <ElemStat />
-  <FpsStat />
-  <ListenerStat />
-  <LCPStat />
-  <NetworkStat />
+<div class="px-4 pt-4 pb-6 text-zorba-500">
+  <div class="text-[12px] uppercase tracking-[5px] text-center pb-1">For Nerds</div>
+  <div class="pt-3 rounded-2xl flex justify-center flex-wrap gap-8 text-[10px] tracking-wide">
+    <ElemStat />
+    <FpsStat />
+    <ListenerStat />
+    <LCPStat />
+    <NetworkStat />
+  </div>
 </div>

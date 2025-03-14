@@ -1,12 +1,31 @@
 ---
 import NavigationLinks from './NavigationLinks.astro'
+import Socials from './Socials.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
 ---
 
-<div class="hidden lg:flex items-center text-right">
+<div class="hidden lg:flex min-w-32">
+  <div class="border-l-2 border-zorba-700 w-px"></div>
   <nav
-    class="relative h-[50vh] text-right px-6 pointer-events-auto flex items-center"
+    class="relative w-full flex flex-col gap-6 h-[calc(100vh-8em)]"
   >
-    <NavigationLinks />
+    <div class="flex pt-16 px-6">
+      <NavigationLinks />
+    </div>
+    <div class="flex-1" />
+    <div class="px-6 py-4 my-6 bg-zorba-600/15 border-y-2 border-zorba-800 shadow-inner">
+      <Socials />
+    </div>
+    <div class="px-6">
+      <ThemeToggle />
+    </div>
+    <div
+      class="px-6 text-xs tracking-wide text-zorba-600 [.theme-light_&]:text-zorba-500"
+    >
+      This site is powered by <a
+        href="https://astro.build/"
+        target="_blank"
+        class="text-mikan-600">Astro</a>
+    </div>
   </nav>
-  <div class="h-[calc(100vh-260px)] border-l border-zorba-700 w-px"></div>
 </div>

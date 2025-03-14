@@ -7,7 +7,6 @@ import NavigationDesktop from '@/components/NavigationDesktop.astro'
 import NavigationMobile from '@/components/NavigationMobile.astro'
 // import Personalizer from '@/components/Personalizer.astro';
 import Stats from '@/components/stats/Stats.astro'
-import ThemeToggle from '@/components/ThemeToggle.astro'
 interface Props {
   title?: string
   styles?: string
@@ -18,14 +17,14 @@ interface Props {
 const { title, styles, width, hideHeader } = Astro.props
 const formattedTitle = `${title || 'Supraset'} ≈ Jonathan Geyer`
 const formattedStyles = `
-	${styles || ''} ${width == 'flex' ? 'flex items-center justify-center ' : ' '}
-	h-screen
-	bg-indigo-900 text-zorba-200 [.theme-light_&]:bg-zorba-50 [.theme-light_&]:text-zorba-800
+	${styles || ''} ${width == 'flex' ? 'flex items-center ' : ' '}
+	min-h-screen
+	text-zorba-200 [.theme-light_&]:text-zorba-800
 `
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-zorba-500">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -36,7 +35,7 @@ const formattedStyles = `
     <meta name="author" content="Jonathan Geyer" />
     <meta
       name="keywords"
-      content="Jonathan Geyer, web developer, front-end engineer, portfolio, Vue, Vite, Typescript"
+      content="Jonathan Geyer, engineering lead, web developer, front-end engineer, portfolio, Astro, Vue, Vite, Typescript"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -56,6 +55,7 @@ const formattedStyles = `
     <script type="text/partytown">
       window.dataLayer = window.dataLayer || []
       function gtag() {
+        // eslint-disable-next-line prefer-rest-params
         dataLayer.push(arguments)
       }
       gtag('js', new Date())
@@ -64,43 +64,40 @@ const formattedStyles = `
 
     <Tooltips interactive={false} delay={[50, 1000]} />
   </head>
-  <body class="p-0 m-0 relative transition-all duration-1000 ease-in-out">
+  <body class="backing p-0 m-0 relative">
     <div class={formattedStyles}>
       <NavigationMobile />
+      {!hideHeader && <Header />}
       <main
-        class="lg:grid lg:grid-cols-[minmax(167px,1fr)_auto_minmax(167px,1fr)] h-screen relative z-0 max-w-screen"
+        class="relative z-0 lg:grid lg:grid-cols-[1fr_80%_minmax(13em,1fr)] max-w-screen"
       >
-        <NavigationDesktop />
-        <div class="flex flex-col min-h-screen">
-          {!hideHeader && <Header />}
+        <div />
+        <div class="max-w-prose mx-auto">
           <slot />
           {(<Footer />)}
-          <div
-            class="relative w-full pt-4 pb-16 border-t border-zorba-600 bg-zorba-900/10"
-          >
-            <Stats />
-          </div>
         </div>
-        <div class="hidden lg:block fixed bottom-6 right-6 h-6">
-          <ThemeToggle />
-        </div>
+        <NavigationDesktop />
+        <!-- <Personalizer /> -->
       </main>
-      <!-- <Personalizer /> -->
+      <div class="relative w-full border-t border-zorba-600">
+        <Stats />
+      </div>
     </div>
   </body>
 </html>
 
 <style>
-  body {
+  .backing {
+    transition: all 1s ease-in-out;
     background: linear-gradient(
       75deg,
-      var(--color-ocean-900) 40%,
+      var(--color-zorba-900) 40%,
       var(--color-zorba-100) 60%
     );
     background-position: 0 0;
     background-size: 300% 100%;
   }
-  .theme-light body {
+  .theme-light .backing {
     background-position: 100% 0;
   }
 </style>
