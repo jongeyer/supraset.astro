@@ -4,12 +4,12 @@ import Icon from './Icon.astro'
 
 <theme-toggle class="inline-block">
   <button
-    class="flex border border-zorba-800 rounded-lg p-0 bg-zorba-900/75 shadow-inner cursor-pointer"
+    class="backing flex border border-zorba-700 rounded-lg p-0 shadow-inner cursor-pointer"
   >
     <span class="sr-only">Dark theme</span>
     <span
       class="dark-toggle relative flex p-2 w-8 h-8 text-base text-zorba-100
-      before:content-[''] before:absolute before:z-0 before:inset-0 before:bg-ocean-700 before:rounded-lg before:transition-transform"
+      before:content-[''] before:absolute before:z-0 before:inset-0"
     >
       <Icon icon="moon-stars" styles="z-1 relative" />
     </span>
@@ -30,6 +30,22 @@ import Icon from './Icon.astro'
   button[aria-pressed='false'] .light-toggle {
     color: var(--color-zorba-100);
   }
+
+  .backing {
+    transition: all 1s ease-in-out;
+    background: linear-gradient(
+      90deg,
+      var(--color-mikan-600) 27%,
+      var(--color-mikan-800) 39%,
+      var(--color-mikan-800) 66%,
+      var(--color-mikan-600) 80%
+    );
+    background-position: 0% 0;
+    background-size: 150% 100%;
+  }
+  :global(.theme-light) .backing {
+    background-position: 100% 0;
+  }
 </style>
 
 <script>
@@ -38,8 +54,6 @@ import Icon from './Icon.astro'
       super()
 
       const button = this.querySelector('button')!
-      const lightToggle = this.querySelector('button span.light')!
-      const darkToggle = this.querySelector('button span.dark')!
 
       /** Set the theme to dark/light mode. */
       const setTheme = (dark: boolean) => {
