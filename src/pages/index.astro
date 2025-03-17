@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import NextButton from '@/components/NextButton.astro'
-import TypingEffect from '@/components/TypingEffect.astro'
+// import TypingEffect from '@/components/TypingEffect.astro'
 // import Textualizer from '@/components/Textualizer.astro';
 
 const personalLabel = 'Front-end Engineer, Designer, Data Enthusiast'
@@ -27,7 +27,8 @@ const personalLabel = 'Front-end Engineer, Designer, Data Enthusiast'
     <div
       class="row-start-6 text-sm md:text-xl px-4 md:px-6 mb-8 font-heading tracking-wider font-light text-zorba-50 mx-auto drop-shadow-xs"
     >
-      <TypingEffect text={personalLabel} />
+      {personalLabel}
+      <!-- <TypingEffect text={personalLabel} /> -->
       <!-- <Textualizer text={personalLabel}>
                 <TypingEffect text={personalLabel} />
             </Textualizer> -->
@@ -63,18 +64,25 @@ const personalLabel = 'Front-end Engineer, Designer, Data Enthusiast'
 
   .colorized {
     background-image: conic-gradient(
-      hsl(60 40% 60%),
-      hsl(100 20% 55%),
-      hsl(140 30% 50%),
-      hsl(180 50% 45%),
-      hsl(220 70% 40%),
-      hsl(260 80% 45%),
-      hsl(300 70% 45%),
-      hsl(340 60% 50%),
-      hsl(60 40% 60%)
+      hsl(60 45% 60%),
+      hsl(100 55% 55%),
+      hsl(140 65% 50%),
+      hsl(180 75% 45%),
+      hsl(220 80% 40%),
+      hsl(260 75% 45%),
+      hsl(300 65% 50%),
+      hsl(340 55% 60%),
+      hsl(20 50% 55%),
+      hsl(60 45% 60%)
     );
     background-size: 200% 200%;
     animation: circular-animation 16s ease-in-out infinite;
+
+    /* Performance optimizations */
+    transform: translateZ(0); /* Force GPU acceleration */
+    will-change: background-position; /* Hint to browser for optimization */
+    contain: paint; /* Reduce paint area */
+    backface-visibility: hidden; /* Additional GPU boost */
   }
   .colorized > :global(*) {
     display: inline-block;

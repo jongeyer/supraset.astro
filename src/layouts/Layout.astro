@@ -7,6 +7,7 @@ import NavigationDesktop from '@/components/NavigationDesktop.astro'
 import NavigationMobile from '@/components/NavigationMobile.astro'
 // import Personalizer from '@/components/Personalizer.astro';
 import Stats from '@/components/stats/Stats.astro'
+
 interface Props {
   title?: string
   styles?: string
@@ -70,10 +71,14 @@ const formattedStyles = `
       <NavigationMobile />
       {!hideHeader && <Header />}
       <main
-        class="relative z-0 lg:grid lg:grid-cols-[1fr_80%_minmax(13em,1fr)] max-w-screen"
+        class=`
+          max-w-screen relative z-0 lg:grid
+          ${width == 'flex' ? 'lg:grid-cols-[1fr_80%_minmax(13em,1fr)]' : 'lg:grid-cols-[0_80%_minmax(13em,1fr)]'}
+        `
       >
         <div />
-        <div class="max-w-prose mx-auto">
+        <div class=`mx-auto ${width == 'flex' ? 'max-w-prose' : 'w-full'}`
+        >
           <slot />
           {(<Footer />)}
         </div>

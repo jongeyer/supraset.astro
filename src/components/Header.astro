@@ -42,19 +42,20 @@
 
   .colorized {
     background-image: conic-gradient(
-      hsl(60 40% 60%),
-      hsl(100 20% 55%),
-      hsl(140 30% 50%),
-      hsl(180 50% 45%),
-      hsl(220 70% 40%),
-      hsl(260 80% 45%),
-      hsl(300 70% 45%),
-      hsl(340 60% 50%),
-      hsl(60 40% 60%)
+      from 90deg,  
+      hsl(60 45% 60%),
+      hsl(100 55% 55%),
+      hsl(140 65% 50%),
+      hsl(180 75% 45%),
+      hsl(220 80% 40%),
+      hsl(260 75% 45%),
+      hsl(300 65% 50%),
+      hsl(340 55% 55%),
+      hsl(60 45% 60%)
     );
     background-size: 200% 200%;
     background-position: 50% 100%;
-    animation: circular-animation 30s ease-in-out infinite;
+    animation: circular-animation 60s ease-in-out infinite;
   }
   .colorized > :global(*) {
     mix-blend-mode: difference;
