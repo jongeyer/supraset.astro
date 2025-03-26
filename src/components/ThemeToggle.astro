@@ -49,6 +49,8 @@ import Icon from './Icon.astro'
 </style>
 
 <script>
+  import '../types/global.d.ts'
+
   class ThemeToggle extends HTMLElement {
     constructor() {
       super()
@@ -64,7 +66,17 @@ import Icon from './Icon.astro'
       }
 
       // Toggle the theme when a user clicks the button.
-      button.addEventListener('click', () => setTheme(!this.isDark()))
+      button.addEventListener('click', () => {
+        const newTheme = !this.isDark()
+        setTheme(newTheme)
+
+        // Track theme toggle event with GA4
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'theme_toggle', {
+            theme: newTheme ? 'light' : 'dark',
+          })
+        }
+      })
 
       // Initialize button state to reflect current theme.
       setTheme(this.isDark())
