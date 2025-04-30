@@ -82,15 +82,14 @@ const formattedStyles = `
         `
       >
         <div />
-        <div class=`mx-auto ${width == 'flex' ? 'max-w-prose' : 'w-full'}`
-        >
+        <div class=`mx-auto ${width == 'flex' ? 'max-w-prose' : 'w-full'}`>
           <slot />
-          {(<Footer />)}
+          <!-- {!hideHeader && <Personalizer />} -->
         </div>
         <NavigationDesktop />
-        <!-- <Personalizer /> -->
+        {(<Footer />)}
       </main>
-      <div class="relative w-full border-t border-zorba-600">
+      <div class="relative w-full border-t sup-border-soft">
         <Stats />
       </div>
     </div>

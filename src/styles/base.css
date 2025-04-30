@@ -86,3 +86,10 @@ html, body {
   padding: 0;
   margin: 0;
 }
+
+.sup-border-soft {
+  @apply border-zorba-700;
+}
+.theme-light .sup-border-soft {
+  @apply border-zorba-300;
+}

@@ -11,7 +11,14 @@ export default [
     rules: {
       semi: ['error', 'never'],
       'no-console': 'warn',
-      'no-unused-vars': 'warn',
+      'no-unused-vars': ['warn', { 
+        argsIgnorePattern: '^_',  // Ignore parameters starting with underscore
+        varsIgnorePattern: '^_'   // Ignore variables starting with underscore
+      }],
+      '@typescript-eslint/no-unused-vars': ['warn', { 
+        argsIgnorePattern: '^_',  // Ignore parameters starting with underscore
+        varsIgnorePattern: '^_'   // Ignore variables starting with underscore
+      }],
       'no-undef': 'warn'
     }
   }
