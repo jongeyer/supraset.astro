@@ -250,6 +250,14 @@ let selectedValue = 'Original'
     personalizeButton?.classList.toggle('menu-open')
     persOverlay?.classList.toggle('overlay-open')
     document.body.style.overflow = isOpen ? 'hidden' : 'auto'
+
+    // Track when overlay is opened
+    if (isOpen && typeof window.gtag === 'function') {
+      window.gtag('event', 'open_personalization', {
+        'event_category': 'Engagement',
+        'event_label': 'Personalize Content'
+      })
+    }
   }
 
   // Add click event listeners to options
@@ -295,6 +303,15 @@ let selectedValue = 'Original'
         option.removeAttribute('disabled')
       }
     })
+
+    // Track selected personalization option
+    if (selectedValue && typeof window.gtag === 'function') {
+      window.gtag('event', 'select_personalization', {
+        'event_category': 'Content',
+        'event_label': selectedValue
+      })
+    }
+
     toggleOverlay()
   }
 
