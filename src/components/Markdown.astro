@@ -1,9 +1,13 @@
 ---
 import '../styles/markdown.css'
 
-// const { frontmatter } = Astro.props
+interface Props {
+  class?: string;
+  mixable?: boolean;
+}
+const { class: className, mixable } = Astro.props;
 ---
 
-<article class="md-content max-w-prose mx-auto">
+<article class="md-content max-w-prose mx-auto" class:list={[className, mixable ? 'mixable' : '']}>
   <slot />
 </article>

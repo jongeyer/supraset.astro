@@ -5,7 +5,7 @@ import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
 import NavigationDesktop from '@/components/NavigationDesktop.astro'
 import NavigationMobile from '@/components/NavigationMobile.astro'
-// import Personalizer from '@/components/Personalizer.astro';
+import Personalizer from '@/components/Personalizer.astro'
 import Stats from '@/components/stats/Stats.astro'
 
 interface Props {
@@ -77,19 +77,21 @@ const formattedStyles = `
       {!hideHeader && <Header />}
       <main
         class=`
-          max-w-screen relative z-0 lg:grid
+          max-w-screen relative z-1 lg:grid
           ${width == 'flex' ? 'lg:grid-cols-[1fr_80%_minmax(13em,1fr)]' : 'lg:grid-cols-[0_80%_minmax(13em,1fr)]'}
         `
       >
         <div />
-        <div class=`mx-auto ${width == 'flex' ? 'max-w-prose' : 'w-full'}`>
-          <slot />
-          <!-- {!hideHeader && <Personalizer />} -->
+        <div class=`mx-auto relative ${width == 'flex' ? 'max-w-prose' : 'w-full'}`>
+          <div class="min-h-[calc(100vh-100px)]">
+            <slot />
+          </div>
+          {!hideHeader && <Personalizer />}
         </div>
         <NavigationDesktop />
         {(<Footer />)}
       </main>
-      <div class="relative w-full border-t sup-border-soft">
+      <div class="relative w-full border-t-2 sup-border-soft">
         <Stats />
       </div>
     </div>

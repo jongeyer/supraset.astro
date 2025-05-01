@@ -1,0 +1,380 @@
+---
+// Present options to automagically personalize content
+import Icon from './Icon.astro'
+
+const personalizeOptions = [
+  {
+    label: 'Original',
+    value: 'Original',
+  },
+  {
+    label: 'Make it funny',
+    value: 'Make it funny',
+  },
+  {
+    label: 'Make it dramatic',
+    value: 'Make it dramatic',
+  },
+  {
+    label: 'Make it poetic',
+    value: 'Make it poetic',
+  },
+  {
+    label: 'Make it romantic',
+    value: 'Make it romantic',
+  },
+  {
+    label: 'Make it silly',
+    value: 'Make it silly',
+  },
+  {
+    label: 'Make it professional',
+    value: 'Make it professional',
+  },
+  {
+    label: 'Make it spooky',
+    value: 'Make it spooky',
+  },
+  // {
+  //   label: 'Make it...',
+  //   value: 'Custom',
+  // },
+]
+let selectedValue = 'Original'
+---
+
+<div
+  class="sticky bottom-0 mx-4 z-60 p-1
+  bg-zorba-400/20 backdrop-blur-sm rounded-t-lg shadow-[0_-4px_16px_rgba(0,0,0,0.125)] border border-t-0 border-zorba-500/20">
+  <button
+    id="personalizeButton"
+    class="flex items-center mx-auto gap-1.5 py-2 px-3 cursor-pointer opacity-80 mix-blend-difference rounded-lg text-sm font-medium
+      text-zorba-500
+      transition-all focus:outline-hidden hover:opacity-100 hover:bg-zorba-500/20"
+    aria-label="Menu"
+    title="Try personalizing this page"
+  >
+    <Icon icon="experiment" size="16px" />
+    <span>Experiment with content</span>
+  </button>
+</div>
+
+<!-- Overlay -->
+<div
+  id="persOverlay"
+  class="fixed inset-20 rounded-lg backdrop-blur-xl bg-black/50 z-101 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none"
+>
+  <!-- Close Button -->
+  <button
+    id="closeButton"
+    class="p-2 focus:outline-hidden fixed top-4 right-4 hover:scale-105 transition-all text-zorba-500 hover:text-zorba-300 cursor-pointer"
+    aria-label="Close"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+      ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+        d="M18 6l-12 12"></path><path d="M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  <div class="h-full flex flex-col items-center justify-center">
+    <ul class="space-y-4 text-left">
+      {
+        personalizeOptions.map(option => (
+          <li
+            class={
+              option.label === selectedValue ? 'opacity-100' : 'opacity-70'
+            }
+          >
+            <button
+              class={`
+                ${option.label === selectedValue ? 'selected' : ''}
+                text-2xl transition-colors flex items-center gap-2
+              `}
+              class="text-2xl flex items-center gap-2 transition-colors"
+              aria-role="menuitem"
+              disabled={option.label === selectedValue}
+              data-value={option.value}
+            >
+              <Icon
+                icon="check"
+                size="24px"
+              />
+              {option.label}
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="text-xs text-zorba-600 mt-12">
+      <p class="text-center">
+        This is a fun experiment with <a
+          href="https://openai.com/"
+          target="_blank"
+          class="text-mikan-600 hover:text-mikan-300"
+        >OpenAI</a>.
+        <br />The content is reworked using the selected prompt.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  @reference "../styles/base.css";
+
+  .overlay-open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  #personalizeButton {
+    @apply text-mikan-500/80 hover:text-mikan-300;
+
+    &.menu-open {
+      @apply bg-mikan-500/20 text-mikan-300
+    }
+  }
+
+  li button {
+    @apply text-zorba-300 hover:text-zorba-100 cursor-pointer;
+
+    svg {
+      opacity: 0;
+    }
+    &.selected {
+      @apply text-mikan-300;
+      
+      svg {
+        opacity: 1;
+      }
+    }
+    &:hover {
+      @apply text-zorba-100;
+    }
+  }
+
+  :global(.mixing) {
+    animation: mix 2s ease-in-out infinite;
+    @apply bg-zorba-500/10;
+  }
+  @keyframes mix {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  :global(.mixed)::after,
+  :global(.mixing)::after {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-left: 0.5em;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    font-size: 0.675em;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+    opacity: 0.75;
+    transition: opacity 0.5s ease-in-out;
+  }
+  :global(.mixed)::after {
+    content: 'personalized ✓';
+    animation: fadeIn 0.5s ease-in-out both;
+    border: 1px solid var(--color-emerald-600);
+    color: var(--color-emerald-600);
+  }
+  :global(.mixing)::after {
+    content: 'Reworking...';
+    animation: fadeInOut 2s infinite both;
+    border: 1px solid var(--color-mikan-500);
+    color: var(--color-mikan-500);
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0.75;
+    }
+  }
+  @keyframes fadeUp {
+    0% {
+      opacity: 0.75;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 0.25;
+    }
+    100% {
+      opacity: 0.75;
+    }
+  }
+</style>
+
+<script>
+  const personalizeButton = document.getElementById('personalizeButton')
+  const closeButton = document.getElementById('closeButton')
+  const persOverlay = document.getElementById('persOverlay')
+  let isOpen = false
+  let selectedValue: string | null
+  let mixableChunks: (string | null)[]
+
+  // Open + close overlay
+  personalizeButton?.addEventListener('click', toggleOverlay)
+  closeButton?.addEventListener('click', toggleOverlay)
+
+  function toggleOverlay() {
+    isOpen = !isOpen
+    personalizeButton?.classList.toggle('menu-open')
+    persOverlay?.classList.toggle('overlay-open')
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto'
+  }
+
+  // Add click event listeners to options
+  const options = document.querySelectorAll(
+    '#persOverlay [aria-role="menuitem"]'
+  )
+  options.forEach(option => {
+    (option as HTMLElement).addEventListener('click', selectOption)
+  })
+  function restoreChunks() {
+    // get all elements with class `mixable`
+    const mixableElements = document.querySelectorAll('.mixable')
+
+    // Update the elements with original content
+    mixableElements.forEach((el, index) => {
+      if (mixableChunks[index]) {
+        el.innerHTML =
+          mixableChunks[index] + (index < mixableChunks.length - 1 ? '.' : '')
+      }
+    })
+    mixableElements.forEach(el => {
+      el.classList.remove('mixing')
+      el.classList.remove('mixed')
+    })
+  }
+
+  function selectOption(e: MouseEvent) {
+    if (!e.target) return
+    selectedValue = (e.target as HTMLElement).getAttribute('data-value')
+
+    if (selectedValue === 'Original') {
+      restoreChunks()
+    } else {
+      personalizeContent(selectedValue as string)
+    }
+    options.forEach(option => {
+      const optionValue = (option as HTMLElement).getAttribute('data-value')
+      if (optionValue == selectedValue) {
+        option.classList.add('selected')
+        option.setAttribute('disabled', 'true')
+      } else {
+        option.classList.remove('selected')
+        option.removeAttribute('disabled')
+      }
+    })
+    toggleOverlay()
+  }
+
+  function getMixableChunks() {
+    if (mixableChunks && mixableChunks.length > 0) {
+      return mixableChunks
+    }
+
+    // get all elements with class `mixable`
+    const mixableElements = document.querySelectorAll('.mixable')
+    // get all html content from the elements
+    mixableChunks = Array.from(mixableElements).map(el => el.innerHTML)
+    return mixableChunks
+  }
+
+  async function personalizeContent(personalization: string) {
+    // get all elements with class `mixable`
+    const mixableElements = document.querySelectorAll('.mixable')
+    // get all html content from the elements
+
+    const chunks = getMixableChunks()
+    // join the content into a single string separate by a new line
+    // this is a simple approach - you might need more sophisticated content distribution
+    const content = chunks.join(' ||| ')
+
+    // add `mixing` class to elements
+    mixableElements.forEach(el => {
+      el.classList.add('mixing')
+    })
+
+    try {
+      const response = await fetch('/.netlify/functions/personalize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content,
+          personalization,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      // Get the personalized content from the response
+      const personalizedContent = data.personalizedContent
+
+      // Split the personalized content back into chunks
+      const personalizedChunks = personalizedContent.split(' ||| ')
+
+      // add delay to simulate processing
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      // Update the elements with personalized content
+      mixableElements.forEach((el, index) => {
+        if (personalizedChunks[index]) {
+          el.innerHTML =
+            personalizedChunks[index] +
+            (index < personalizedChunks.length - 1 ? '.' : '')
+        }
+      })
+    } catch (error) {
+      console.error('Personalization failed:', error)
+      // In case of error, add a simple indicator to show something went wrong
+      mixableElements.forEach(el => {
+        el.innerHTML +=
+          ' <span class="text-red-500">(Personalization failed)</span>'
+      })
+    } finally {
+      // add delay to simulate loading
+      await new Promise(resolve => setTimeout(resolve, 250))
+      // remove `mixing` class from elements
+      mixableElements.forEach(el => {
+        el.classList.remove('mixing')
+        el.classList.add('mixed')
+      })
+    }
+  }
+</script>

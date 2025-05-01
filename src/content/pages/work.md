@@ -7,14 +7,23 @@ styles: ""
 
 I invite you to look at my [**LinkedIn profile**](https://www.linkedin.com/in/jongeyer/) to see where my career has taken me.
 
-## Notables
+## Expertise
+
+My expertise is in architecting and building web applications:
+
+- Dashboard reporting applications
+- Data/metadata management
+- Data visualization and mapping interfaces
+- CMS-driven sites
+
+## Notable Projects
 
 Most projects I've worked on are not public. Here are some links:
 
-- [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - Built with: Vue 3, Tailwind, Pinia
-- [Hawaii Campaign Finance Data](https://jongeyer.github.io/campaignfinance/) - Built with: d3, Crossfilter
-- [Annual Reports for WPR Fishery Management Council](https://www.wpcouncildata.org/) - Built with: Quasar, chart.js
-- [papahanaumokuakea.gov](https://www.papahanaumokuakea.gov/) - Built with: Jekyll, USWDS
+- [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - Vue 3, Tailwind, Pinia
+- [Hawaii Campaign Finance Data](https://jongeyer.github.io/campaignfinance/) - d3, Crossfilter
+- [Annual Reports for WPR Fishery Management Council](https://www.wpcouncildata.org/) - Quasar, chart.js
+- [Papahanaumokuakea.gov](https://www.papahanaumokuakea.gov/) - Jekyll, USWDS
 
 ## It's been a journey
 
@@ -31,10 +40,3 @@ I’ve had interesting jobs over the years and I’ve learned a lot from each. I
 - Research assistant in astrophysics department
 - Acquisition filer in university library
 - Message poster for local community board
-
-My expertise is in building web applications, such as…
-
-- Dashboard reporting applications
-- Data/metadata management
-- Data visualization and mapping interfaces
-- CMS-driven sites
