@@ -87,6 +87,16 @@ let selectedValue = 'Original'
   </button>
 
   <div class="h-full flex flex-col items-center justify-center">
+    <div class="text-xs text-zorba-300 mb-12">
+      <p class="text-center">
+        This is a fun experiment with <a
+          href="https://openai.com/"
+          target="_blank"
+          class="text-mikan-600 hover:text-mikan-300"
+        >OpenAI</a>.
+        <br />Select an option to transform content on the page.
+      </p>
+    </div>
     <ul class="space-y-4 text-left">
       {
         personalizeOptions.map(option => (
@@ -115,16 +125,6 @@ let selectedValue = 'Original'
         ))
       }
     </ul>
-    <div class="text-xs text-zorba-600 mt-12">
-      <p class="text-center">
-        This is a fun experiment with <a
-          href="https://openai.com/"
-          target="_blank"
-          class="text-mikan-600 hover:text-mikan-300"
-        >OpenAI</a>.
-        <br />The content is reworked using the selected prompt.
-      </p>
-    </div>
   </div>
 </div>
 
@@ -162,11 +162,20 @@ let selectedValue = 'Original'
     }
   }
 
-  :global(.mixing) {
-    animation: mix 2s ease-in-out infinite;
+  :global(.mixing > *) {
+    animation: mixing 2s ease-in-out infinite;
     @apply bg-zorba-500/10;
   }
-  @keyframes mix {
+  :global(.mixing > *:nth-child(3n+1)) {  /* 1st, 4th, 7th, etc. */
+    animation-delay: 0.1s;
+  }
+  :global(.mixing > *:nth-child(3n+2)) {  /* 2nd, 5th, 8th, etc. */
+    animation-delay: 0.4s;
+  }
+  :global(.mixing > *:nth-child(3n)) {    /* 3rd, 6th, 9th, etc. */
+    animation-delay: 0.7s;
+  }
+  @keyframes mixing {
     0% {
       opacity: 1;
     }
