@@ -18,12 +18,13 @@ My expertise is in architecting and building web applications:
 
 ## Notable Projects
 
-Most projects I've worked on are not public. Here are some links:
+While most projects I've worked on are not public, here are some that I'm able to share:
 
-- [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - Vue 3, Tailwind, Pinia
-- [Hawaii Campaign Finance Data](https://jongeyer.github.io/campaignfinance/) - d3, Crossfilter
-- [Annual Reports for WPR Fishery Management Council](https://www.wpcouncildata.org/) - Quasar, chart.js
-- [Papahanaumokuakea.gov](https://www.papahanaumokuakea.gov/) - Jekyll, USWDS
+- [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - `Vue 3`, `Tailwind`, `Pinia`
+- [Annual Reports for WPR Fishery Management Council](https://www.wpcouncildata.org/) - `Quasar`, `chart.js`, `markdown-it`
+- [NOAA PIFSC Fishery Ecosystem Analysis Tool](https://apps-pifsc.fisheries.noaa.gov/FEAT/#/) - `Vue`, `Crossfilter`, `d3`, `markdown-it`
+- [Hawaii Campaign Finance Data](https://jongeyer.github.io/campaignfinance/) - `d3`, `Crossfilter`
+- [Papahanaumokuakea.gov](https://www.papahanaumokuakea.gov/) - `Jekyll`, `USWDS`
 
 ## It's been a journey
 

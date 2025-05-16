@@ -2,33 +2,33 @@
 
 .md-content {
   h1 {
-    @apply text-4xl font-bold leading-loose;
+    @apply font-bold text-4xl leading-loose;
   }
   h2 {
-    @apply text-3xl font-bold leading-loose;
+    @apply font-bold text-3xl leading-loose;
   }
   h3 {
-    @apply text-xl font-semibold leading-loose;
+    @apply font-semibold text-xl leading-loose;
   }
 
   p {
-    @apply text-base leading-relaxed mb-4;
+    @apply mb-4 text-base leading-relaxed;
   }
 
   ul {
-    @apply list-disc list-inside mb-4;
+    @apply mb-4 list-disc list-inside;
   }
 
   a {
-    @apply text-indigo-300 hover:text-indigo-400 [.theme-light_&]:text-ocean-600 [.theme-light_&]:hover:text-ocean-800;
+    @apply text-indigo-300 [.theme-light_&]:hover:text-ocean-800 [.theme-light_&]:text-ocean-600 hover:text-indigo-400;
   }
 
   blockquote {
-    @apply border-l-4 border-zorba-300 pl-4 italic my-4;
+    @apply my-4 pl-4 border-zorba-300 border-l-4 italic;
   }
 
   code {
-    @apply bg-zorba-100 rounded-sm px-1 py-0.5 font-mono text-sm;
+    @apply bg-zorba-300/20 rounded-sm px-1 py-0.5 font-mono text-sm;
   }
 
   li {
