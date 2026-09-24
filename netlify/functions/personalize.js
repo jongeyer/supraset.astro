@@ -45,6 +45,21 @@ export const handler = async function (event, _context) {
 
     const data = await response.json()
 
+    // OpenAI reports failures (quota, bad key, retired model) in `data.error`
+    if (!response.ok || !data.choices?.length) {
+      const { code, type, message } = data.error ?? {}
+      console.error(
+        'OpenAI request failed:',
+        response.status,
+        code ?? type,
+        message
+      )
+      return {
+        statusCode: 502,
+        body: JSON.stringify({ error: 'Personalization service unavailable' }),
+      }
+    }
+
     // Return the generated content
     return {
       statusCode: 200,
