@@ -1,2 +1,9 @@
 [functions]
   node_bundler = "esbuild"
+
+# Keep the Netlify subdomain out of search: send it to the real domain
+[[redirects]]
+  from = "https://supraset.netlify.app/*"
+  to = "https://supraset.com/:splat"
+  status = 301
+  force = true
