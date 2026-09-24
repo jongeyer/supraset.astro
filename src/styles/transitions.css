@@ -1,0 +1,96 @@
+/*
+ * Cross-document view transitions: page content slides in the direction of
+ * navigation (see the pagereveal script in Layout.astro) while shared chrome
+ * holds still. Browsers without support get normal page loads.
+ */
+
+@view-transition {
+  navigation: auto;
+}
+
+.vt-header {
+  view-transition-name: vt-header;
+}
+.vt-nav {
+  view-transition-name: vt-nav;
+}
+.vt-footer {
+  view-transition-name: vt-footer;
+}
+.vt-stats {
+  view-transition-name: vt-stats;
+}
+.vt-menu-button {
+  view-transition-name: vt-menu-button;
+}
+.vt-content {
+  view-transition-name: vt-content;
+}
+
+/* Shared chrome snaps to the new page instead of crossfading */
+::view-transition-old(vt-header),
+::view-transition-old(vt-nav),
+::view-transition-old(vt-footer),
+::view-transition-old(vt-stats),
+::view-transition-old(vt-menu-button) {
+  display: none;
+}
+::view-transition-new(vt-header),
+::view-transition-new(vt-nav),
+::view-transition-new(vt-footer),
+::view-transition-new(vt-stats),
+::view-transition-new(vt-menu-button) {
+  animation: none;
+}
+
+/* Content slides; everything else swaps in place */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(vt-content) {
+  animation: none;
+}
+::view-transition-old(vt-content) {
+  animation: 280ms ease-in both vt-slide-out-left;
+}
+::view-transition-new(vt-content) {
+  animation: 320ms ease-out both vt-slide-in-right;
+}
+html:active-view-transition-type(backwards)::view-transition-old(vt-content) {
+  animation-name: vt-slide-out-right;
+}
+html:active-view-transition-type(backwards)::view-transition-new(vt-content) {
+  animation-name: vt-slide-in-left;
+}
+
+@keyframes vt-slide-out-left {
+  to {
+    transform: translateX(-12%);
+    opacity: 0;
+  }
+}
+@keyframes vt-slide-in-right {
+  from {
+    transform: translateX(12%);
+    opacity: 0;
+  }
+}
+@keyframes vt-slide-out-right {
+  to {
+    transform: translateX(12%);
+    opacity: 0;
+  }
+}
+@keyframes vt-slide-in-left {
+  from {
+    transform: translateX(-12%);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

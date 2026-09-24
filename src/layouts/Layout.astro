@@ -1,5 +1,6 @@
 ---
 import '../styles/base.css'
+import '../styles/transitions.css'
 import { Tooltips } from 'astro-tooltips'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
@@ -7,6 +8,7 @@ import NavigationDesktop from '@/components/NavigationDesktop.astro'
 import NavigationMobile from '@/components/NavigationMobile.astro'
 import Personalizer from '@/components/Personalizer.astro'
 import Stats from '@/components/stats/Stats.astro'
+import { textLinks } from '@/utils/navigation'
 
 interface Props {
   title?: string
@@ -16,6 +18,7 @@ interface Props {
 }
 
 const { title, styles, width, hideHeader } = Astro.props
+const navOrder = textLinks.map(link => link.href)
 const formattedTitle = `${title || 'Supraset'} ≈ Jonathan Geyer`
 const formattedStyles = `
 	${styles || ''} ${width == 'flex' ? 'flex items-center ' : ' '}
@@ -59,6 +62,20 @@ const formattedStyles = `
         // Storage unavailable: keep the default dark theme
       }
     </script>
+    {/* Slide page transitions backwards when moving up the nav order */}
+    <script is:inline define:vars={{ navOrder }}>
+      const rank = url => {
+        const path = new URL(url).pathname.replace(/\/$/, '') || '/'
+        return navOrder.indexOf(path)
+      }
+      addEventListener('pagereveal', e => {
+        const from = window.navigation?.activation?.from?.url
+        if (!e.viewTransition || !from) return
+        if (rank(from) > rank(location.href)) {
+          e.viewTransition.types?.add('backwards')
+        }
+      })
+    </script>
     {/* Only include Google Analytics in production */}
     {import.meta.env.PROD && (
       <>
@@ -96,7 +113,7 @@ const formattedStyles = `
         <div
           class=`mx-auto relative ${width == 'flex' ? 'max-w-prose' : 'w-full'}`
         >
-          <div class="min-h-[calc(100vh-100px)]">
+          <div class="vt-content min-h-[calc(100vh-100px)]">
             <slot />
           </div>
           {!hideHeader && <Personalizer />}
@@ -104,7 +121,7 @@ const formattedStyles = `
         <NavigationDesktop />
         {<Footer />}
       </main>
-      <div class="relative w-full border-t-2 sup-border-soft">
+      <div class="vt-stats relative w-full border-t-2 sup-border-soft">
         <Stats />
       </div>
     </div>
