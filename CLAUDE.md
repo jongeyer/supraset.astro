@@ -14,7 +14,7 @@ The portfolio comes first. The site is also a place for experiment and expressio
 
 ## Verifying changes
 
-- A change is done when `pnpm build` passes (it runs `astro check`).
+- A change is done when `pnpm check` (types, lint, formatting) and `pnpm build` both pass. Run `pnpm format` to fix formatting.
 - Add unit tests where they guard against a real regression. Keep testing at the unit level; scripted component and e2e tests are out of scope for now.
 
 ## Design and taste

@@ -9,6 +9,9 @@ const unusedVarsOptions = {
 }
 
 export default [
+  {
+    ignores: ['dist/', '.astro/', '.netlify/'],
+  },
   ...tsEslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
   eslintConfigPrettier,
