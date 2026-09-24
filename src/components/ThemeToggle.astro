@@ -65,6 +65,11 @@ import Icon from './Icon.astro'
       button.addEventListener('click', () => {
         const newTheme = !this.isDark()
         setTheme(newTheme)
+        try {
+          localStorage.setItem('theme', newTheme ? 'light' : 'dark')
+        } catch {
+          // Storage unavailable: the choice lasts until the next page load
+        }
 
         // Track theme toggle event with GA4
         if (typeof window.gtag === 'function') {
