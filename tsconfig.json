@@ -7,5 +7,7 @@
       "@/layouts/*": ["src/layouts/*"],
       "@/utils/*": ["src/utils/*"]
     }
-  }
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
 }
