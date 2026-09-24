@@ -8,6 +8,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   site: 'https://supraset.com',
   compressHTML: true,
+  prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [partytown(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
