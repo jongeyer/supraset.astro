@@ -34,16 +34,14 @@ const { showLabels } = Astro.props
 ---
 
 <div class="flex flex-wrap justify-around gap-6">
-  {
-    iconLinks.map(({ href, icon, label }) => (
-      <a
-        href={href}
-        class="group text-center no-underline transition-all text-zorba-500 hover:text-zorba-600"
-      >
-        <div class="sr-only">{label}</div>
-        <div class={showLabels ? '' : 'hidden'}>{label}</div>
-        <Icon icon={icon} size={showLabels ? '3em' : '2em'} />
-      </a>
-    ))
-  }
+  {iconLinks.map(({ href, icon, label }) => (
+    <a
+      href={href}
+      class="group text-center no-underline transition-all text-zorba-500 hover:text-zorba-600"
+    >
+      <div class="sr-only">{label}</div>
+      <div class={showLabels ? '' : 'hidden'}>{label}</div>
+      <Icon icon={icon} size={showLabels ? '3em' : '2em'} />
+    </a>
+  ))}
 </div>

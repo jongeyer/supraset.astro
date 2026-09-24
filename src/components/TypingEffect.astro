@@ -4,7 +4,7 @@
 import { uuidAlpha } from '../utils/uuid.js'
 
 interface Props {
-	text: string;
+  text: string
 }
 const { text } = Astro.props
 const elId = uuidAlpha()
@@ -14,26 +14,26 @@ const typingOptions = {
 }
 ---
 
-<div id={elId} class="min-h-6"/>
+<div id={elId} class="min-h-6" />
 
-<script define:vars={{elId, text, typingOptions}}>
-const labelRef = document.getElementById(elId)
-let index = 0
+<script define:vars={{ elId, text, typingOptions }}>
+  const labelRef = document.getElementById(elId)
+  let index = 0
 
-const typingEffect = () => {
-		if (!labelRef) return
+  const typingEffect = () => {
+    if (!labelRef) return
 
-  if (index < text.length) {
+    if (index < text.length) {
       labelRef.textContent += text.charAt(index)
-    index++
+      index++
       setTimeout(typingEffect, typingOptions.speed) // Typing speed
-  } else {
+    } else {
       setTimeout(() => {
         labelRef.textContent = ''
-      index = 0
-      setTimeout(typingEffect, typingOptions.speed) // Restart typing
-    }, typingOptions.delay)
+        index = 0
+        setTimeout(typingEffect, typingOptions.speed) // Restart typing
+      }, typingOptions.delay)
+    }
   }
-  }
-typingEffect()
+  typingEffect()
 </script>

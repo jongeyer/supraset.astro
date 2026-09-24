@@ -56,7 +56,8 @@ const formattedStyles = `
         <script
           type="text/partytown"
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-W2526JMR42"></script>
+          src="https://www.googletagmanager.com/gtag/js?id=G-W2526JMR42"
+        ></script>
         <script type="text/partytown">
           window.dataLayer = window.dataLayer || []
           function gtag() {
@@ -82,14 +83,16 @@ const formattedStyles = `
         `
       >
         <div />
-        <div class=`mx-auto relative ${width == 'flex' ? 'max-w-prose' : 'w-full'}`>
+        <div
+          class=`mx-auto relative ${width == 'flex' ? 'max-w-prose' : 'w-full'}`
+        >
           <div class="min-h-[calc(100vh-100px)]">
             <slot />
           </div>
           {!hideHeader && <Personalizer />}
         </div>
         <NavigationDesktop />
-        {(<Footer />)}
+        {<Footer />}
       </main>
       <div class="relative w-full border-t-2 sup-border-soft">
         <Stats />

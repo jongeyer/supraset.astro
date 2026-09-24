@@ -45,7 +45,8 @@ let selectedValue = 'Original'
 
 <div
   class="sticky bottom-0 mx-4 z-60 p-1
-  bg-zorba-400/20 backdrop-blur-sm rounded-t-lg shadow-[0_-4px_16px_rgba(0,0,0,0.125)] border border-t-0 border-zorba-500/20">
+  bg-zorba-400/20 backdrop-blur-sm rounded-t-lg shadow-[0_-4px_16px_rgba(0,0,0,0.125)] border border-t-0 border-zorba-500/20"
+>
   <button
     id="personalizeButton"
     class="flex items-center mx-auto gap-1.5 py-2 px-3 cursor-pointer opacity-80 mix-blend-difference rounded-lg text-sm font-medium
@@ -81,49 +82,49 @@ let selectedValue = 'Original'
       stroke-linecap="round"
       stroke-linejoin="round"
       class="icon icon-tabler icons-tabler-outline icon-tabler-x"
-      ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-        d="M18 6l-12 12"></path><path d="M6 6l12 12"></path>
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M18 6l-12 12"></path>
+      <path d="M6 6l12 12"></path>
     </svg>
   </button>
 
   <div class="h-full flex flex-col items-center justify-center">
     <div class="text-xs text-zorba-300 mb-12">
       <p class="text-center">
-        This is a fun experiment with <a
+        This is a fun experiment with{' '}
+        <a
           href="https://openai.com/"
           target="_blank"
           class="text-mikan-600 hover:text-mikan-300"
-        >OpenAI</a>.
-        <br />Select an option to transform content on the page.
+        >
+          OpenAI
+        </a>
+        .
+        <br />
+        Select an option to transform content on the page.
       </p>
     </div>
     <ul class="space-y-4 text-left">
-      {
-        personalizeOptions.map(option => (
-          <li
-            class={
-              option.label === selectedValue ? 'opacity-100' : 'opacity-70'
-            }
-          >
-            <button
-              class={`
+      {personalizeOptions.map(option => (
+        <li
+          class={option.label === selectedValue ? 'opacity-100' : 'opacity-70'}
+        >
+          <button
+            class={`
                 ${option.label === selectedValue ? 'selected' : ''}
                 text-2xl transition-colors flex items-center gap-2
               `}
-              class="text-2xl flex items-center gap-2 transition-colors"
-              aria-role="menuitem"
-              disabled={option.label === selectedValue}
-              data-value={option.value}
-            >
-              <Icon
-                icon="check"
-                size="24px"
-              />
-              {option.label}
-            </button>
-          </li>
-        ))
-      }
+            class="text-2xl flex items-center gap-2 transition-colors"
+            aria-role="menuitem"
+            disabled={option.label === selectedValue}
+            data-value={option.value}
+          >
+            <Icon icon="check" size="24px" />
+            {option.label}
+          </button>
+        </li>
+      ))}
     </ul>
   </div>
 </div>
@@ -140,7 +141,7 @@ let selectedValue = 'Original'
     @apply text-mikan-500/80 hover:text-mikan-300;
 
     &.menu-open {
-      @apply bg-mikan-500/20 text-mikan-300
+      @apply bg-mikan-500/20 text-mikan-300;
     }
   }
 
@@ -152,7 +153,7 @@ let selectedValue = 'Original'
     }
     &.selected {
       @apply text-mikan-300;
-      
+
       svg {
         opacity: 1;
       }
@@ -166,13 +167,16 @@ let selectedValue = 'Original'
     animation: mixing 2s ease-in-out infinite;
     @apply bg-zorba-500/10;
   }
-  :global(.mixing > *:nth-child(3n+1)) {  /* 1st, 4th, 7th, etc. */
+  :global(.mixing > *:nth-child(3n + 1)) {
+    /* 1st, 4th, 7th, etc. */
     animation-delay: 0.1s;
   }
-  :global(.mixing > *:nth-child(3n+2)) {  /* 2nd, 5th, 8th, etc. */
+  :global(.mixing > *:nth-child(3n + 2)) {
+    /* 2nd, 5th, 8th, etc. */
     animation-delay: 0.4s;
   }
-  :global(.mixing > *:nth-child(3n)) {    /* 3rd, 6th, 9th, etc. */
+  :global(.mixing > *:nth-child(3n)) {
+    /* 3rd, 6th, 9th, etc. */
     animation-delay: 0.7s;
   }
   @keyframes mixing {
@@ -263,8 +267,8 @@ let selectedValue = 'Original'
     // Track when overlay is opened
     if (isOpen && typeof window.gtag === 'function') {
       window.gtag('event', 'open_personalization', {
-        'event_category': 'Engagement',
-        'event_label': 'Personalize Content'
+        event_category: 'Engagement',
+        event_label: 'Personalize Content',
       })
     }
   }
@@ -274,7 +278,7 @@ let selectedValue = 'Original'
     '#persOverlay [aria-role="menuitem"]'
   )
   options.forEach(option => {
-    (option as HTMLElement).addEventListener('click', selectOption)
+    ;(option as HTMLElement).addEventListener('click', selectOption)
   })
   function restoreChunks() {
     // get all elements with class `mixable`
@@ -316,8 +320,8 @@ let selectedValue = 'Original'
     // Track selected personalization option
     if (selectedValue && typeof window.gtag === 'function') {
       window.gtag('event', 'select_personalization', {
-        'event_category': 'Content',
-        'event_label': selectedValue
+        event_category: 'Content',
+        event_label: selectedValue,
       })
     }
 

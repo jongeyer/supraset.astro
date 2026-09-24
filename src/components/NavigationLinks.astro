@@ -16,21 +16,19 @@ const isCurrentPage = (href: string) => {
 ---
 
 <ul class="flex flex-col gap-2">
-  {
-    textLinks.map(({ label, href }) => (
-      <li>
-        <a
-          aria-current={isCurrentPage(href) ? 'page' : null}
-          {href}
-          class={`
+  {textLinks.map(({ label, href }) => (
+    <li>
+      <a
+        aria-current={isCurrentPage(href) ? 'page' : null}
+        {href}
+        class={`
             ${isCurrentPage(href) ? 'text-mikan-500' : 'text-zorba-500'}
             p-2 inline-block text-3xl transition-all rounded-2xl 
             hover:text-indigo-300 hover:backdrop-blur-2xl
           `}
-        >
-          {label}
-        </a>
-      </li>
-    ))
-  }
+      >
+        {label}
+      </a>
+    </li>
+  ))}
 </ul>

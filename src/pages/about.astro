@@ -12,17 +12,20 @@ if (entry) {
 } else {
   throw new Error('entry is undefined')
 }
-
 ---
 
-<Layout 
-  title={entry.data.title} 
+<Layout
+  title={entry.data.title}
   styles="grid h-screen overflow-auto"
   width="flex"
 >
   <div class="my-12 px-8">
-    <span class="text-indigo-500"><Icon icon="wave" size="8em" /></span>
-    <span class="text-mikan-600"><Icon icon="smile-sticker" size="8em" /></span>
+    <span class="text-indigo-500">
+      <Icon icon="wave" size="8em" />
+    </span>
+    <span class="text-mikan-600">
+      <Icon icon="smile-sticker" size="8em" />
+    </span>
     <Markdown mixable>
       <Content />
     </Markdown>

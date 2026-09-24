@@ -1,6 +1,6 @@
 ---
-title: "Work"
-styles: ""
+title: 'Work'
+styles: ''
 ---
 
 # Work

@@ -32,6 +32,6 @@
   }
 
   li {
-    @apply ml-4 list-outside leading-relaxed
+    @apply ml-4 list-outside leading-relaxed;
   }
 }

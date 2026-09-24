@@ -8,12 +8,7 @@ interface Props {
   defaultValue?: number
 }
 
-const {
-  storageKey,
-  label,
-  maxDataPoints = 48,
-  defaultValue = 0,
-} = Astro.props
+const { storageKey, label, maxDataPoints = 48, defaultValue = 0 } = Astro.props
 const elId = uuidAlpha()
 const valueId = uuidAlpha()
 ---
@@ -21,7 +16,9 @@ const valueId = uuidAlpha()
 <div>
   <div class="flex w-19 items-center justify-between pb-0.5">
     <span class="mr-2 tracking-wide">{label}</span>
-    <span id={valueId} class="text-mikan-600 ml-1">##</span>
+    <span id={valueId} class="text-mikan-600 ml-1">
+      ##
+    </span>
   </div>
   <div id={elId} class="w-19 h-5"></div>
 </div>
