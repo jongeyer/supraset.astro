@@ -7,6 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://supraset.com',
+  trailingSlash: 'always',
   compressHTML: true,
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [partytown(), sitemap()],

@@ -12,12 +12,19 @@ import { textLinks } from '@/utils/navigation'
 
 interface Props {
   title?: string
+  description?: string
+  /** Keep the page out of search results, e.g. the 404 page */
+  noindex?: boolean
   styles?: string
   width?: 'full' | 'flex'
   hideHeader?: boolean
 }
 
-const { title, styles, width, hideHeader } = Astro.props
+const { title, styles, width, hideHeader, noindex } = Astro.props
+const description =
+  Astro.props.description ??
+  'Jonathan Geyer - Front-end Engineer, Designer, Data Enthusiast'
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const navOrder = textLinks.map(link => link.href)
 const formattedTitle = `${title || 'Supraset'} ≈ Jonathan Geyer`
 const formattedStyles = `
@@ -31,19 +38,23 @@ const formattedStyles = `
 <html lang="en" class="bg-zorba-500">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Jonathan Geyer - Front-end Engineer, Designer, Data Enthusiast"
-    />
+    <meta name="description" content={description} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={canonicalURL} />
+    )}
     <meta name="viewport" content="width=device-width" />
     <meta name="author" content="Jonathan Geyer" />
-    <meta
-      name="keywords"
-      content="Jonathan Geyer, engineering lead, web developer, front-end engineer, portfolio, Astro, Vue, Vite, Typescript"
-    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{formattedTitle}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Supraset" />
+    <meta property="og:title" content={formattedTitle} />
+    <meta property="og:description" content={description} />
+    {!noindex && <meta property="og:url" content={canonicalURL} />}
+    <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -65,8 +76,8 @@ const formattedStyles = `
     {/* Slide page transitions backwards when moving up the nav order */}
     <script is:inline define:vars={{ navOrder }}>
       const rank = url => {
-        const path = new URL(url).pathname.replace(/\/$/, '') || '/'
-        return navOrder.indexOf(path)
+        const path = new URL(url).pathname
+        return navOrder.indexOf(path.endsWith('/') ? path : path + '/')
       }
       addEventListener('pagereveal', e => {
         const from = window.navigation?.activation?.from?.url
