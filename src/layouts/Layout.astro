@@ -13,18 +13,16 @@ import { person, siteName, structuredData, tagline } from '@/utils/site'
 
 interface Props {
   title?: string
+  /** Home page mode: full-width hero instead of the header, no personalizer */
+  hero?: boolean
   description?: string
   /** Keep the page out of search results, e.g. the 404 page */
   noindex?: boolean
-  styles?: string
-  width?: 'full' | 'flex'
-  hideHeader?: boolean
   /** Hide the personalizer on pages with no content to personalize */
   hidePersonalizer?: boolean
 }
 
-const { title, styles, width, hideHeader, hidePersonalizer, noindex } =
-  Astro.props
+const { title, hero, hidePersonalizer, noindex } = Astro.props
 const description = Astro.props.description ?? `${person.name} - ${tagline}`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const ogImageURL = new URL('/og-image.png', Astro.site)
@@ -32,9 +30,9 @@ const jsonLd = JSON.stringify(structuredData(new URL('/', Astro.site)))
 const navOrder = textLinks.map(link => link.href)
 const formattedTitle = `${title || 'Supraset'} ≈ Jonathan Geyer`
 const formattedStyles = `
-	${styles || ''} ${width == 'flex' ? 'flex items-center ' : ' '}
-	min-h-screen
-	text-zorba-200 [.theme-light_&]:text-zorba-800
+  ${hero ? '' : 'grid h-screen overflow-auto'}
+  min-h-screen
+  text-zorba-200 [.theme-light_&]:text-zorba-800
 `
 ---
 
@@ -85,7 +83,7 @@ const formattedStyles = `
         // Storage unavailable: keep the default dark theme
       }
     </script>
-    {/* Slide page transitions backwards when moving up the nav order */}
+    {/* Transition types: slide backwards up the nav order; hero morph to and from Home */}
     <script is:inline define:vars={{ navOrder }}>
       const rank = url => {
         const path = new URL(url).pathname
@@ -94,8 +92,11 @@ const formattedStyles = `
       addEventListener('pagereveal', e => {
         const from = window.navigation?.activation?.from?.url
         if (!e.viewTransition || !from) return
-        if (rank(from) > rank(location.href)) {
-          e.viewTransition.types?.add('backwards')
+        const [fromRank, toRank] = [rank(from), rank(location.href)]
+        if (fromRank > toRank) e.viewTransition.types?.add('backwards')
+        // Home (first in the nav) morphs its hero into the page header
+        if ((fromRank === 0) !== (toRank === 0)) {
+          e.viewTransition.types?.add('hero')
         }
       })
     </script>
@@ -125,21 +126,20 @@ const formattedStyles = `
   <body class="backing p-0 m-0 relative">
     <div class={formattedStyles}>
       <NavigationMobile />
-      {!hideHeader && <Header />}
-      <main
-        class=`
-          max-w-screen relative z-1 lg:grid
-          ${width == 'flex' ? 'lg:grid-cols-[1fr_80%_minmax(13em,1fr)]' : 'lg:grid-cols-[0_80%_minmax(13em,1fr)]'}
-        `
-      >
-        <div />
+      {!hero && <Header />}
+      <main class="max-w-screen relative z-1 lg:grid lg:grid-cols-site">
+        {!hero && <div />}
         <div
-          class=`mx-auto relative ${width == 'flex' ? 'max-w-prose' : 'w-full'}`
+          class={
+            hero
+              ? 'relative w-full lg:col-span-2'
+              : 'mx-auto relative max-w-prose'
+          }
         >
           <div class="vt-content min-h-[calc(100vh-100px)]">
             <slot />
           </div>
-          {!hideHeader && !hidePersonalizer && <Personalizer />}
+          {!hero && !hidePersonalizer && <Personalizer />}
         </div>
         <NavigationDesktop />
         {<Footer />}

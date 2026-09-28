@@ -1,15 +1,17 @@
 /*
  * Cross-document view transitions: page content slides in the direction of
  * navigation (see the pagereveal script in Layout.astro) while shared chrome
- * holds still. Browsers without support get normal page loads.
+ * holds still. To and from Home (the `hero` type), the home hero's band, name
+ * and subheading morph into the page header. Browsers without support get
+ * normal page loads.
  */
 
 @view-transition {
   navigation: auto;
 }
 
-.vt-header {
-  view-transition-name: vt-header;
+.vt-masthead {
+  view-transition-name: vt-masthead;
 }
 .vt-nav {
   view-transition-name: vt-nav;
@@ -26,16 +28,37 @@
 .vt-content {
   view-transition-name: vt-content;
 }
+.vt-name {
+  view-transition-name: vt-name;
+}
+.vt-tagline {
+  view-transition-name: vt-tagline;
+}
+.vt-hero-next {
+  view-transition-name: vt-hero-next;
+}
+.vt-hero-tagline {
+  view-transition-name: vt-hero-tagline;
+}
+
+/*
+ * The name and subheading get their color by blending with the band behind
+ * them. Snapshots lose that, so blend the transition groups the same way.
+ */
+::view-transition-group(vt-name),
+::view-transition-group(vt-tagline) {
+  mix-blend-mode: difference;
+}
 
 /* Shared chrome snaps to the new page instead of crossfading */
-::view-transition-old(vt-header),
+::view-transition-old(vt-masthead),
 ::view-transition-old(vt-nav),
 ::view-transition-old(vt-footer),
 ::view-transition-old(vt-stats),
 ::view-transition-old(vt-menu-button) {
   display: none;
 }
-::view-transition-new(vt-header),
+::view-transition-new(vt-masthead),
 ::view-transition-new(vt-nav),
 ::view-transition-new(vt-footer),
 ::view-transition-new(vt-stats),
@@ -83,6 +106,33 @@ html:active-view-transition-type(backwards)::view-transition-new(vt-content) {
 @keyframes vt-slide-in-left {
   from {
     transform: translateX(-12%);
+    opacity: 0;
+  }
+}
+
+/* Hero: the band, name and subheading morph between Home and the header */
+html:active-view-transition-type(hero)::view-transition-group(vt-masthead),
+html:active-view-transition-type(hero)::view-transition-group(vt-name),
+html:active-view-transition-type(hero)::view-transition-group(vt-tagline) {
+  animation-duration: 450ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+html:active-view-transition-type(hero)::view-transition-old(vt-masthead) {
+  display: block;
+  height: 100%;
+  animation: 450ms ease-in-out both vt-fade-out;
+}
+html:active-view-transition-type(hero)::view-transition-new(vt-masthead) {
+  height: 100%;
+  animation: 450ms ease-in-out both vt-fade-in;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
     opacity: 0;
   }
 }

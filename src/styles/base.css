@@ -94,3 +94,8 @@ body {
 .theme-light .sup-border-soft {
   @apply border-zorba-300;
 }
+
+/* Desktop site grid: a sidebar-width column on each side of the content */
+@utility grid-cols-site {
+  grid-template-columns: 13em minmax(0, 1fr) 13em;
+}
