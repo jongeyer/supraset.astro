@@ -136,7 +136,8 @@ body {
     band-orbit-y var(--band-orbit) var(--band-orbit-ease) infinite,
     band-spin var(--band-spin-duration, 60s) linear infinite;
   animation-delay:
-    var(--band-delay, 0s), calc(var(--band-delay, 0s) - var(--band-orbit) * 3 / 4),
+    var(--band-delay, 0s),
+    calc(var(--band-delay, 0s) - var(--band-orbit) * 3 / 4),
     var(--band-delay, 0s);
   will-change: background-position;
   contain: paint;
