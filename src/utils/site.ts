@@ -3,8 +3,8 @@ export const siteName = 'Supraset'
 export const tagline = 'Engineer, Designer, Data Explorer'
 
 /** Color band loops (.colorized in base.css), in ms */
-export const bandOrbitMs = 30_000 // the conic center's elliptical drift
-export const bandSpinMs = 60_000 // one full turn of the gradient
+export const bandOrbitMs = 120_000 // the conic center's elliptical orbit
+export const bandSpinMs = 90_000 // the first stop's 0deg -> 180deg -> 0deg sweep
 
 export const person = {
   name: 'Jonathan Geyer',
