@@ -1,16 +1,21 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import Markdown from '@/components/Markdown.astro'
 ---
 
-<Layout title="Page not found" width="flex" noindex>
-  <div class="my-12 px-8 max-w-prose">
-    <h1 class="text-3xl font-heading font-bold pb-4">Page not found</h1>
-    <p>
-      There's nothing at this address. Try the{' '}
-      <a href="/" class="text-mikan-600 underline">
-        home page
-      </a>
-      .
-    </p>
+<Layout
+  title="Page not found"
+  styles="grid h-screen overflow-auto"
+  width="flex"
+  hidePersonalizer
+  noindex
+>
+  <div class="my-12 px-8">
+    <Markdown>
+      <h1>Page not found</h1>
+      <p>
+        There's nothing at this address. Try the <a href="/">home page</a>.
+      </p>
+    </Markdown>
   </div>
 </Layout>

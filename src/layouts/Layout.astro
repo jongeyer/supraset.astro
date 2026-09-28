@@ -19,9 +19,12 @@ interface Props {
   styles?: string
   width?: 'full' | 'flex'
   hideHeader?: boolean
+  /** Hide the personalizer on pages with no content to personalize */
+  hidePersonalizer?: boolean
 }
 
-const { title, styles, width, hideHeader, noindex } = Astro.props
+const { title, styles, width, hideHeader, hidePersonalizer, noindex } =
+  Astro.props
 const description = Astro.props.description ?? `${person.name} - ${tagline}`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const ogImageURL = new URL('/og-image.png', Astro.site)
@@ -136,7 +139,7 @@ const formattedStyles = `
           <div class="vt-content min-h-[calc(100vh-100px)]">
             <slot />
           </div>
-          {!hideHeader && <Personalizer />}
+          {!hideHeader && !hidePersonalizer && <Personalizer />}
         </div>
         <NavigationDesktop />
         {<Footer />}
