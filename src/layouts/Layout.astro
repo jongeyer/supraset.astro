@@ -10,7 +10,8 @@ import Personalizer from '@/components/Personalizer.astro'
 import Stats from '@/components/stats/Stats.astro'
 import { textLinks } from '@/utils/navigation'
 import {
-  bandDurationMs,
+  bandOrbitMs,
+  bandSpinMs,
   person,
   siteName,
   structuredData,
@@ -79,11 +80,14 @@ const formattedStyles = `
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    {/* Continue the color band's loop from the clock, not from zero */}
-    <script is:inline define:vars={{ bandDurationMs }}>
+    {/* Continue the color band's loops from the clock, not from zero */}
+    <script is:inline define:vars={{ bandOrbitMs, bandSpinMs }}>
       const root = document.documentElement.style
-      root.setProperty('--band-duration', `${bandDurationMs}ms`)
-      root.setProperty('--band-delay', `${-(Date.now() % bandDurationMs)}ms`)
+      // A cycle both loops divide, so one delay puts each at the right phase
+      const cycle = bandOrbitMs * bandSpinMs
+      root.setProperty('--band-orbit-duration', `${bandOrbitMs}ms`)
+      root.setProperty('--band-spin-duration', `${bandSpinMs}ms`)
+      root.setProperty('--band-delay', `${-(Date.now() % cycle)}ms`)
     </script>
     {/* Apply the saved theme before first paint */}
     <script is:inline>

@@ -101,13 +101,23 @@ body {
 }
 
 /*
- * The animated color band behind the home hero and the page header. One
- * loop is shared by every page: Layout sets --band-duration and a
- * clock-based --band-delay before first paint, so the loop continues across
- * page loads instead of restarting.
+ * The animated color band behind the home hero and the page header. Its
+ * conic center orbits on an ellipse (x and y each ease like a sine wave, y a
+ * quarter loop behind x) while the gradient spins. Layout sets the loop lengths
+ * and a clock-based --band-delay before first paint, so the band continues
+ * across page loads instead of restarting.
  */
+@property --band-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
 .colorized {
+  --band-orbit: var(--band-orbit-duration, 30s);
+  /* easeInOutSine per half loop: each axis traces a cosine */
+  --band-orbit-ease: cubic-bezier(0.37, 0, 0.63, 1);
   background-image: conic-gradient(
+    from var(--band-angle),
     hsl(60 45% 60%),
     hsl(100 55% 55%),
     hsl(140 65% 50%),
@@ -120,23 +130,42 @@ body {
     hsl(60 45% 60%)
   );
   background-size: 200% 200%;
-  animation: band-orbit var(--band-duration, 30s) ease-in-out infinite;
-  animation-delay: var(--band-delay, 0s);
+  background-position: 70% 30%;
+  animation:
+    band-orbit-x var(--band-orbit) var(--band-orbit-ease) infinite,
+    band-orbit-y var(--band-orbit) var(--band-orbit-ease) infinite,
+    band-spin var(--band-spin-duration, 60s) linear infinite;
+  animation-delay:
+    var(--band-delay, 0s), calc(var(--band-delay, 0s) - var(--band-orbit) * 3 / 4),
+    var(--band-delay, 0s);
   will-change: background-position;
   contain: paint;
 }
-@keyframes band-orbit {
+@keyframes band-orbit-x {
   0%,
   100% {
-    background-position: 95% 50%;
-  }
-  25% {
-    background-position: 50% 95%;
+    background-position-x: 95%;
   }
   50% {
-    background-position: 5% 50%;
+    background-position-x: 5%;
   }
-  75% {
-    background-position: 50% 5%;
+}
+@keyframes band-orbit-y {
+  0%,
+  100% {
+    background-position-y: 95%;
+  }
+  50% {
+    background-position-y: 5%;
+  }
+}
+@keyframes band-spin {
+  to {
+    --band-angle: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .colorized {
+    animation: none;
   }
 }

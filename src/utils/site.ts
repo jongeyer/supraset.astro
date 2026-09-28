@@ -2,8 +2,9 @@
 export const siteName = 'Supraset'
 export const tagline = 'Engineer, Designer, Data Explorer'
 
-/** One loop of the animated color band (.colorized in base.css), in ms */
-export const bandDurationMs = 30_000
+/** Color band loops (.colorized in base.css), in ms */
+export const bandOrbitMs = 30_000 // the conic center's elliptical drift
+export const bandSpinMs = 60_000 // one full turn of the gradient
 
 export const person = {
   name: 'Jonathan Geyer',

@@ -1,5 +1,5 @@
 <div class="vt-masthead colorized w-full lg:grid lg:grid-cols-site text-zorba-50 border-b-1 border-zorba-400">
-  <div class="hidden lg:block h-full bg-zorba-50"></div>
+  <div class="soft-light hidden lg:block h-full bg-zorba-50"></div>
   <div class="py-4">
     <div class="max-w-prose px-4 mx-auto">
       <div class="vt-name w-fit leading-none text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-2">
@@ -10,11 +10,14 @@
       </div>
     </div>
   </div>
-  <div class="hidden lg:block h-full bg-zorba-50"></div>
+  <div class="soft-light hidden lg:block h-full bg-zorba-50"></div>
 </div>
 
 <style>
-  .colorized > :global(*) {
+  .colorized > :global(:not(.soft-light)) {
     mix-blend-mode: difference;
+  }
+  .soft-light {
+    mix-blend-mode: soft-light;
   }
 </style>
