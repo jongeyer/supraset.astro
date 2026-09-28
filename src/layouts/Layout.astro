@@ -9,6 +9,7 @@ import NavigationMobile from '@/components/NavigationMobile.astro'
 import Personalizer from '@/components/Personalizer.astro'
 import Stats from '@/components/stats/Stats.astro'
 import { textLinks } from '@/utils/navigation'
+import { person, siteName, structuredData, tagline } from '@/utils/site'
 
 interface Props {
   title?: string
@@ -21,10 +22,10 @@ interface Props {
 }
 
 const { title, styles, width, hideHeader, noindex } = Astro.props
-const description =
-  Astro.props.description ??
-  'Jonathan Geyer - Front-end Engineer, Designer, Data Enthusiast'
+const description = Astro.props.description ?? `${person.name} - ${tagline}`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const ogImageURL = new URL('/og-image.png', Astro.site)
+const jsonLd = JSON.stringify(structuredData(new URL('/', Astro.site)))
 const navOrder = textLinks.map(link => link.href)
 const formattedTitle = `${title || 'Supraset'} ≈ Jonathan Geyer`
 const formattedStyles = `
@@ -50,11 +51,19 @@ const formattedStyles = `
     <meta name="generator" content={Astro.generator} />
     <title>{formattedTitle}</title>
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Supraset" />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={formattedTitle} />
     <meta property="og:description" content={description} />
     {!noindex && <meta property="og:url" content={canonicalURL} />}
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={`${person.name}, ${siteName}: ${tagline}`}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={jsonLd}></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

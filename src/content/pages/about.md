@@ -1,5 +1,6 @@
 ---
 title: 'About Me'
+description: 'Jonathan Geyer builds user experiences for data-rich platforms, drawing on physics, sculpture, and an MFA in Design & Technology from Parsons.'
 ---
 
 # Hi! My name is Jon

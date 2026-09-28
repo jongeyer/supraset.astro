@@ -1,5 +1,6 @@
 ---
 title: 'Work'
+description: "Jonathan Geyer's expertise in dashboards, data management, and visualization, with projects for NOAA, Nacelle, and public data sites."
 styles: ''
 ---
 
