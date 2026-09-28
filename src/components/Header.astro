@@ -14,48 +14,6 @@
 </div>
 
 <style>
-  :root {
-    --czd-t: 95%;
-    --czd-b: 5%;
-    --czd-l: 5%;
-    --czd-r: 95%;
-    --czd-m: 50%;
-  }
-  @keyframes circular-animation {
-    0% {
-      background-position: var(--czd-r) var(--czd-m);
-    }
-    25% {
-      background-position: var(--czd-m) var(--czd-t);
-    }
-    50% {
-      background-position: var(--czd-l) var(--czd-m);
-    }
-    75% {
-      background-position: var(--czd-m) var(--czd-b);
-    }
-    100% {
-      background-position: var(--czd-r) var(--czd-m);
-    }
-  }
-
-  .colorized {
-    background-image: conic-gradient(
-      from 90deg,
-      hsl(60 45% 60%),
-      hsl(100 55% 55%),
-      hsl(140 65% 50%),
-      hsl(180 75% 45%),
-      hsl(220 80% 40%),
-      hsl(260 75% 45%),
-      hsl(300 65% 50%),
-      hsl(340 55% 55%),
-      hsl(60 45% 60%)
-    );
-    background-size: 200% 200%;
-    background-position: 50% 100%;
-    animation: circular-animation 60s ease-in-out infinite;
-  }
   .colorized > :global(*) {
     mix-blend-mode: difference;
   }

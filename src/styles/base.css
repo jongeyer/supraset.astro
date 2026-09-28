@@ -99,3 +99,44 @@ body {
 @utility grid-cols-site {
   grid-template-columns: 13em minmax(0, 1fr) 13em;
 }
+
+/*
+ * The animated color band behind the home hero and the page header. One
+ * loop is shared by every page: Layout sets --band-duration and a
+ * clock-based --band-delay before first paint, so the loop continues across
+ * page loads instead of restarting.
+ */
+.colorized {
+  background-image: conic-gradient(
+    hsl(60 45% 60%),
+    hsl(100 55% 55%),
+    hsl(140 65% 50%),
+    hsl(180 75% 45%),
+    hsl(220 80% 40%),
+    hsl(260 75% 45%),
+    hsl(300 65% 50%),
+    hsl(340 55% 60%),
+    hsl(20 50% 55%),
+    hsl(60 45% 60%)
+  );
+  background-size: 200% 200%;
+  animation: band-orbit var(--band-duration, 30s) ease-in-out infinite;
+  animation-delay: var(--band-delay, 0s);
+  will-change: background-position;
+  contain: paint;
+}
+@keyframes band-orbit {
+  0%,
+  100% {
+    background-position: 95% 50%;
+  }
+  25% {
+    background-position: 50% 95%;
+  }
+  50% {
+    background-position: 5% 50%;
+  }
+  75% {
+    background-position: 50% 5%;
+  }
+}

@@ -2,6 +2,9 @@
 export const siteName = 'Supraset'
 export const tagline = 'Engineer, Designer, Data Explorer'
 
+/** One loop of the animated color band (.colorized in base.css), in ms */
+export const bandDurationMs = 30_000
+
 export const person = {
   name: 'Jonathan Geyer',
   jobTitle: 'Lead Front-end Engineer',

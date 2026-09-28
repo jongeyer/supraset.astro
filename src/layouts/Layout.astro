@@ -9,7 +9,13 @@ import NavigationMobile from '@/components/NavigationMobile.astro'
 import Personalizer from '@/components/Personalizer.astro'
 import Stats from '@/components/stats/Stats.astro'
 import { textLinks } from '@/utils/navigation'
-import { person, siteName, structuredData, tagline } from '@/utils/site'
+import {
+  bandDurationMs,
+  person,
+  siteName,
+  structuredData,
+  tagline,
+} from '@/utils/site'
 
 interface Props {
   title?: string
@@ -73,6 +79,12 @@ const formattedStyles = `
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    {/* Continue the color band's loop from the clock, not from zero */}
+    <script is:inline define:vars={{ bandDurationMs }}>
+      const root = document.documentElement.style
+      root.setProperty('--band-duration', `${bandDurationMs}ms`)
+      root.setProperty('--band-delay', `${-(Date.now() % bandDurationMs)}ms`)
+    </script>
     {/* Apply the saved theme before first paint */}
     <script is:inline>
       try {
