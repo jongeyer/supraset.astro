@@ -89,6 +89,13 @@ body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+}
+
 .sup-border-soft {
   @apply border-zorba-700;
 }
