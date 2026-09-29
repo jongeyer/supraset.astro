@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Markdown from '@/components/Markdown.astro'
-import Icon from '@/components/Icon.astro'
+import PageIcons from '@/components/PageIcons.astro'
 
 import { getEntry, render } from 'astro:content'
 
@@ -15,10 +15,15 @@ if (entry) {
 ---
 
 <Layout title={entry.data.title} description={entry.data.description}>
-  <div class="my-12 px-8">
-    <Icon icon="compass" size="6em" />
-    <Icon icon="desktop" size="6em" />
-    <Icon icon="file-code" size="6em" />
+  <div class="relative my-12 px-8">
+    <PageIcons
+      sets={[
+        ['Compass', 'DraftingCompass', 'PenTool', 'Orbit'],
+        ['Monitor', 'LayoutDashboard', 'ChartLine', 'Map'],
+        ['FileCode', 'Database', 'CodeXml', 'Braces'],
+        ['Route', 'Users', 'GitBranch', 'Rocket'],
+      ]}
+    />
     <Markdown mixable="work">
       <Content />
     </Markdown>

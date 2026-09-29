@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Markdown from '@/components/Markdown.astro'
-import Icon from '@/components/Icon.astro'
+import PageIcons from '@/components/PageIcons.astro'
 
 import { getEntry, render } from 'astro:content'
 
@@ -15,13 +15,16 @@ if (entry) {
 ---
 
 <Layout title={entry.data.title} description={entry.data.description}>
-  <div class="my-12 px-8">
-    <span class="text-indigo-500">
-      <Icon icon="wave" size="8em" />
-    </span>
-    <span class="text-mikan-600">
-      <Icon icon="smile-sticker" size="8em" />
-    </span>
+  <div class="relative my-12 px-8">
+    <PageIcons
+      class="text-mikan-600"
+      sets={[
+        ['Handshake', 'LayoutDashboard', 'Atom', 'ChartScatter'],
+        ['Smile', 'PersonStanding', 'Waves', 'Lightbulb'],
+        ['Coffee', 'Users', 'Telescope', 'Puzzle'],
+        ['Hand', 'Shapes', 'Palette', 'Layers'],
+      ]}
+    />
     <Markdown mixable="about">
       <Content />
     </Markdown>

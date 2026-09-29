@@ -1,18 +1,42 @@
 ---
-import Icon from './Icon.astro'
+import MorphIcon from 'morphicons/astro'
+import { lucideIcons } from '@/utils/lucide'
+
+// Each side shows its full icon while active and a dimmer one while not
+const [moonStar, moon, sun, sunDim] = lucideIcons([
+  'MoonStar',
+  'Moon',
+  'Sun',
+  'SunDim',
+])
+const icons = JSON.stringify({ moonStar, moon, sun, sunDim })
 ---
 
-<theme-toggle class="inline-block">
+<theme-toggle class="inline-block" data-icons={icons}>
   <button class="backing flex border border-zorba-700 rounded-lg p-0 shadow-inner cursor-pointer">
     <span class="sr-only">Dark theme</span>
     <span
       class="dark-toggle relative flex p-2 w-8 h-8 text-base text-zorba-100
       before:content-[''] before:absolute before:z-0 before:inset-0"
     >
-      <Icon icon="moon-stars" styles="z-1 relative" />
+      <MorphIcon
+        icon={moonStar}
+        size="1em"
+        spring="snappy"
+        reducedMotion="user"
+        class="z-1 relative"
+        data-theme-icon="dark"
+      />
     </span>
     <span class="light-toggle relative flex p-2 w-8 h-8 text-base text-zorba-100">
-      <Icon icon="sun" styles="z-1 relative" />
+      <MorphIcon
+        icon={sunDim}
+        size="1em"
+        spring="snappy"
+        reducedMotion="user"
+        class="z-1 relative"
+        data-theme-icon="light"
+      />
     </span>
   </button>
 </theme-toggle>
@@ -46,25 +70,53 @@ import Icon from './Icon.astro'
 
 <script>
   import '../types/global.d.ts'
+  import type { IconNode } from 'morphicons/astro'
+  import type { MorphIconElement } from 'morphicons/element'
 
   class ThemeToggle extends HTMLElement {
     constructor() {
       super()
 
       const button = this.querySelector('button')!
+      const icons: Record<string, IconNode> = JSON.parse(this.dataset.icons!)
+      const darkIcon = this.querySelector<MorphIconElement>(
+        '[data-theme-icon="dark"]'
+      )!
+      const lightIcon = this.querySelector<MorphIconElement>(
+        '[data-theme-icon="light"]'
+      )!
 
-      /** Set the theme to dark/light mode. */
-      const setTheme = (dark: boolean) => {
-        document.documentElement.classList[dark ? 'add' : 'remove'](
-          'theme-light'
-        )
-        button.setAttribute('aria-pressed', String(dark))
+      /** Show the active side's full icon: morph on a toggle, snap on load. */
+      const showIcons = async (light: boolean, animate: boolean) => {
+        await customElements.whenDefined('morph-icon')
+        const dark = light ? icons.moon : icons.moonStar
+        const sun = light ? icons.sun : icons.sunDim
+        if (animate) {
+          darkIcon.morphTo(dark)
+          lightIcon.morphTo(sun)
+        } else {
+          darkIcon.set(dark)
+          lightIcon.set(sun)
+        }
       }
+
+      /** Reflect the current theme in this toggle. */
+      const sync = (animate: boolean) => {
+        const light = this.isDark()
+        button.setAttribute('aria-pressed', String(light))
+        showIcons(light, animate)
+      }
+
+      // The page has a toggle in each nav; every one follows the theme class,
+      // whichever toggle changed it
+      new MutationObserver(() => sync(true)).observe(document.documentElement, {
+        attributeFilter: ['class'],
+      })
 
       // Toggle the theme when a user clicks the button.
       button.addEventListener('click', () => {
         const newTheme = !this.isDark()
-        setTheme(newTheme)
+        document.documentElement.classList.toggle('theme-light', newTheme)
         try {
           localStorage.setItem('theme', newTheme ? 'light' : 'dark')
         } catch {
@@ -80,7 +132,7 @@ import Icon from './Icon.astro'
       })
 
       // Initialize button state to reflect current theme.
-      setTheme(this.isDark())
+      sync(false)
     }
 
     isDark() {

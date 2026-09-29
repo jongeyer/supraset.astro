@@ -24,6 +24,8 @@
     "astro": "^7.3.4",
     "astro-tooltips": "^0.6.2",
     "hast-util-to-html": "^9.0.5",
+    "lucide": "^1.48.0",
+    "morphicons": "^1.7.1",
     "typescript": "^6.0.3",
     "unist-util-visit": "^5.1.0"
   },

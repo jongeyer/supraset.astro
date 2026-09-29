@@ -1,5 +1,5 @@
 ---
-import Icon from './Icon.astro'
+import MorphCycle from './MorphCycle.astro'
 
 interface Props {
   to: string
@@ -10,8 +10,11 @@ const { to } = Astro.props
 <a
   href={to}
   class="arrow inline-block text-zorba-50 text-6xl cursor-pointer mx-auto"
+  aria-label="About me"
 >
-  <Icon icon="arrows-in" />
+  <MorphCycle
+    icons={['Shrink', 'Galaxy', 'Asterisk', 'VectorPolygon', 'DoorStairwell']}
+  />
 </a>
 
 <style>

@@ -1,0 +1,57 @@
+---
+// A Lucide icon that morphs through a set of icons on a timer. The first icon
+// is server-rendered, so it shows as a still icon without JavaScript.
+import MorphIcon from 'morphicons/astro'
+import { lucideIcons, type LucideName } from '@/utils/lucide'
+
+interface Props {
+  icons: LucideName[]
+  class?: string
+}
+const { icons, class: className } = Astro.props
+const nodes = lucideIcons(icons)
+---
+
+<MorphIcon
+  icon={nodes[0]}
+  size="1em"
+  strokeWidth={1.5}
+  spring="smooth"
+  reducedMotion="user"
+  class:list={['morph-cycle', className]}
+  data-icons={JSON.stringify(nodes)}
+/>
+
+<script>
+  import type { IconNode } from 'morphicons/astro'
+  import type { MorphIconElement } from 'morphicons/element'
+
+  const intervalMs = 3200
+  const staggerMs = 450
+
+  await customElements.whenDefined('morph-icon')
+
+  const visible = new WeakMap<Element, boolean>()
+  const observer = new IntersectionObserver(entries =>
+    entries.forEach(entry => visible.set(entry.target, entry.isIntersecting))
+  )
+
+  document
+    .querySelectorAll<MorphIconElement>('morph-icon.morph-cycle')
+    .forEach((el, i) => {
+      const icons: IconNode[] = JSON.parse(el.dataset.icons!)
+      const svg = el.querySelector('svg')!
+      let at = 0
+      observer.observe(svg)
+
+      // Staggered so a row of icons ripples rather than changing at once;
+      // paused while off screen or in a background tab
+      setTimeout(() => {
+        setInterval(() => {
+          if (document.hidden || visible.get(svg) === false) return
+          at = (at + 1) % icons.length
+          el.morphTo(icons[at])
+        }, intervalMs)
+      }, i * staggerMs)
+    })
+</script>
