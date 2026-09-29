@@ -1,8 +1,11 @@
 @import 'tailwindcss';
 
-@theme {
-  --font-heading: Lexend, sans-serif;
+/* --font-lexend is self-hosted by Astro's Fonts API (astro.config.mjs) */
+@theme inline {
+  --font-heading: var(--font-lexend);
+}
 
+@theme {
   --color-indigo-50: #ebeefa;
   --color-indigo-100: #d2d9f4;
   --color-indigo-200: #a9b7ea;

@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config'
+import { defineConfig, fontProviders } from 'astro/config'
 import partytown from '@astrojs/partytown'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
@@ -11,6 +11,17 @@ export default defineConfig({
   compressHTML: true,
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [partytown(), sitemap()],
+  // Downloaded at build time and served from the site
+  fonts: [
+    {
+      name: 'Lexend',
+      cssVariable: '--font-lexend',
+      provider: fontProviders.google(),
+      weights: [200, 400, 700],
+      styles: ['normal'],
+      subsets: ['latin'],
+    },
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
