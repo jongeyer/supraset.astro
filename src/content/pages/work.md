@@ -21,7 +21,9 @@ My expertise is in architecting and building web applications:
 
 While most projects I've worked on are not public, here are some that I'm able to share:
 
-- [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - `Vue 3`, `Tailwind`, `Pinia`
+- [TReqs](https://app.treqs.ai) - `Astro`, `UnoCSS`, `Nuxt`, `Tailwind`
+- [glaas.ai](https://glaas.ai) - `Nuxt`, `Tailwind`, `Dagre`, `Pinia Colada`
+- [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - `Vue`, `Tailwind`, `Pinia`
 - [Annual Reports for WPR Fishery Management Council](https://www.wpcouncildata.org/) - `Quasar`, `chart.js`, `markdown-it`
 - [NOAA PIFSC Fishery Ecosystem Analysis Tool](https://apps-pifsc.fisheries.noaa.gov/FEAT/#/) - `Vue`, `Crossfilter`, `d3`, `markdown-it`
 - [Hawaii Campaign Finance Data](https://jongeyer.github.io/campaignfinance/) - `d3`, `Crossfilter`
