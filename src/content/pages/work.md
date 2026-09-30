@@ -6,12 +6,13 @@ styles: ''
 
 # Work
 
-I invite you to look at my [**LinkedIn profile**](https://www.linkedin.com/in/jongeyer/) to see where my career has taken me.
+My [**LinkedIn profile**](https://www.linkedin.com/in/jongeyer/) has more on where my career has taken me.
 
 ## Expertise
 
 My expertise is in architecting and building web applications:
 
+- UX / DX / Agentic experience
 - Dashboard reporting applications
 - Data/metadata management
 - Data visualization and mapping interfaces
@@ -33,6 +34,7 @@ While most projects I've worked on are not public, here are some that I'm able t
 
 I’ve had interesting jobs over the years and I’ve learned a lot from each. In reverse chronological order:
 
+- Cofounder & Product Engineering Leader
 - Lead Frontend Engineer for e-commerce data platform
 - Frontend Dev Rel for e-commerce data platform
 - Senior Frontend Engineer at B2B e-commerce platform
