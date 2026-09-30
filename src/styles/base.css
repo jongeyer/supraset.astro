@@ -103,6 +103,18 @@ h4 {
   @apply border-zorba-300;
 }
 
+/* Masthead height, stepping up with the name's size. The mobile menu button
+   centres itself on it. */
+:root {
+  --masthead-h: 5.375rem;
+  @variant sm {
+    --masthead-h: 5.875rem;
+  }
+  @variant md {
+    --masthead-h: 6.75rem;
+  }
+}
+
 /* Desktop site grid: a sidebar-width column on each side of the content */
 @utility grid-cols-site {
   grid-template-columns: 13em minmax(0, 1fr) 13em;

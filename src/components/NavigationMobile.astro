@@ -7,7 +7,7 @@ import ThemeToggle from './ThemeToggle.astro'
   <!-- Hamburger Button -->
   <button
     id="menuButton"
-    class="vt-menu-button lg:hidden z-50 cursor-pointer p-4 focus:outline-none fixed top-7 right-7 rounded-full border-2 border-zorba-700
+    class="vt-menu-button lg:hidden z-50 cursor-pointer p-4 focus:outline-none fixed right-7 rounded-full border-2 border-zorba-700
       transition-transform hover:rotate-90"
     aria-label="Menu"
   >
@@ -31,6 +31,11 @@ import ThemeToggle from './ThemeToggle.astro'
 </div>
 
 <style>
+  /* Centred on the masthead: 3.25rem of padding and bars plus a 2px border */
+  #menuButton {
+    top: calc((var(--masthead-h) - 3.25rem - 4px) / 2);
+  }
+
   /* Additional styles for the menu animation states */
   #menuButton:not(.menu-open):hover {
     span:first-child {
