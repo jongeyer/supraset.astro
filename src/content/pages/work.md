@@ -22,6 +22,7 @@ My expertise is in architecting and building web applications:
 
 While most projects I've worked on are not public, here are some that I'm able to share:
 
+- [Himawari](https://himawari.supraset.com/?utm_source=supraset) - `Svelte`, `D3`, `Tailwind`, `Python (precompute)`
 - [TReqs](https://app.treqs.ai) - `Astro`, `UnoCSS`, `Nuxt`, `Tailwind`
 - [glaas.ai](https://glaas.ai) - `Nuxt`, `Tailwind`, `Dagre`, `Pinia Colada`
 - [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - `Vue`, `Tailwind`, `Pinia`
