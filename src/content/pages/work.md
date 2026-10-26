@@ -18,13 +18,18 @@ My expertise is in architecting and building web applications:
 - Data visualization and mapping interfaces
 - CMS-driven sites
 
-## Notable Projects
+## Projects
+
+### Notable
 
 While most projects I've worked on are not public, here are some that I'm able to share:
 
-- [Himawari](https://himawari.supraset.com/?utm_source=supraset) - `Svelte`, `D3`, `Tailwind`, `Python (precompute)`
-- [TReqs](https://app.treqs.ai) - `Astro`, `UnoCSS`, `Nuxt`, `Tailwind`
-- [glaas.ai](https://glaas.ai) - `Nuxt`, `Tailwind`, `Dagre`, `Pinia Colada`
+- [Himawari](https://himawari.supraset.com/?utm_source=supraset) - Experiment in distilling Github activity across orgs and repos - `Svelte`, `D3`, `Tailwind`, `Python (precompute)`
+- [TReqs](https://app.treqs.ai) - ML developer collaboration platform - `Astro`, `UnoCSS`, `Nuxt`, `Tailwind`
+- [glaas.ai](https://glaas.ai) - Registry for ML lineage and workflows that deeply integrates with [TReqs](https://treqs.ai) and [roar](https://github.com/treqs/roar) - `Nuxt`, `Tailwind`, `Dagre`, `Pinia Colada`
+
+### Others
+
 - [Nacelle's Dashboard](https://docs.nacelle.com/docs/account-and-team-setup) - `Vue`, `Tailwind`, `Pinia`
 - [Annual Reports for WPR Fishery Management Council](https://www.wpcouncildata.org/) - `Quasar`, `chart.js`, `markdown-it`
 - [NOAA PIFSC Fishery Ecosystem Analysis Tool](https://apps-pifsc.fisheries.noaa.gov/FEAT/#/) - `Vue`, `Crossfilter`, `d3`, `markdown-it`
